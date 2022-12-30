@@ -1,5 +1,6 @@
 package com.ahmad.homeManagement.services;
 
+import com.ahmad.homeManagement.fileStorage.FileStoreImage;
 import com.ahmad.homeManagement.modules.ArticleRepo;
 import com.ahmad.homeManagement.modules.tabels.Article;
 import org.springframework.http.HttpStatus;
@@ -16,11 +17,12 @@ public class ArticleService {
 
 
     private final ArticleRepo articleRepo;
+    private IFileStorage fileStorage ;
 
 
-
-    public ArticleService(ArticleRepo articleRepo) {
+    public ArticleService(ArticleRepo articleRepo) throws Exception {
         this.articleRepo = articleRepo;
+        this.fileStorage = new FileStoreImage("homeManagement");
     }
 
 
@@ -74,7 +76,16 @@ public class ArticleService {
         return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("La valeur n'a pas été modifié");
     }
 
-    public void uploadArticleImageById(Long idArt, MultipartFile file) {
+    public void uploadArticleImageById(Long idArt, MultipartFile file) throws Exception {
+        System.err.println(file.getOriginalFilename());
+        Optional<Article> article = articleRepo.findById(idArt);
+        fileStorage.setImage(file, article.get().getNom());
+    }
+
+    public byte[] downloaddArticleImageById(Long idArt) {
+
+        
+
 
     }
 }

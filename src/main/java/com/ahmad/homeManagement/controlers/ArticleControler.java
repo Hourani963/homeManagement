@@ -57,9 +57,18 @@ public class ArticleControler {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public void uploadPerformerProfileImage(@PathVariable("id") Long idArt,
-                                            @RequestParam("file") MultipartFile file){
+    public void uploadArticleImage(@PathVariable("id") Long idArt,
+                                            @RequestParam("file") MultipartFile file) throws Exception {
         articleService.uploadArticleImageById(idArt,file);
+    }
+
+    @GetMapping(
+            path = "{id}/image/download",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public byte[] downloadArticleImage(@PathVariable("id") Long idArt) throws Exception {
+        return articleService.downloaddArticleImageById(idArt);
     }
 
 }
