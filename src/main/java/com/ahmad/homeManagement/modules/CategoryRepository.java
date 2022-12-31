@@ -14,8 +14,14 @@ import java.util.List;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
+    @Query("SELECT c FROM Category c")
+    List<Category> findAllCat();
+
     @Query("SELECT a FROM Category a WHERE a.nomCat = ?1")
     List<Category> findCatByName(String nomArticle);
+
+    @Query("SELECT a FROM Article a JOIN a.category c WHERE c.idCat = :idCat")
+    List<Article> getAllArticleForCat(Long idCat);
 
 
     @Transactional

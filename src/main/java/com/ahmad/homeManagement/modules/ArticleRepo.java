@@ -15,7 +15,8 @@ import java.util.List;
 
 @Repository
 public interface ArticleRepo extends JpaRepository<Article, Long> {
-
+    @Query("SELECT a FROM Article a")
+    List<Article> findAllArt();
     @Query("SELECT a FROM Article a WHERE a.nom = ?1")
     List<Article> findArticleByName(String nomArticle);
 

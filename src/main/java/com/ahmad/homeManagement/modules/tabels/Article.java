@@ -1,6 +1,7 @@
 package com.ahmad.homeManagement.modules.tabels;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
 
@@ -62,7 +63,8 @@ public class Article {
         this.photo_link = photo_link;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "article")
+    @ManyToMany(mappedBy = "article",fetch = FetchType.EAGER)
+    @JsonBackReference
     private Collection<Category> category;
 
     public Collection<Category> getCategory() {

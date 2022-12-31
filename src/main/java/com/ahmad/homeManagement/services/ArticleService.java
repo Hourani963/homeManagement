@@ -27,7 +27,7 @@ public class ArticleService {
 
 
     public List<Article> findAll() {
-        return articleRepo.findAll();
+        return articleRepo.findAllArt();
     }
 
     public ResponseEntity<String> save(Article article) {

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +26,7 @@ public class CategoryService {
     }
 
     public List<Category> findAll() {
-        return categoryRepository.findAll();
+        return categoryRepository.findAllCat();
     }
 
     public ResponseEntity<String> addCategory(Category category) {
@@ -86,5 +87,10 @@ public class CategoryService {
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Vérifier que les ids existe dans la bd");
         }
+    }
+
+    public Collection<Article> getAllArticleforCat(Long idCat) {
+        return categoryRepository.getAllArticleForCat(idCat);
+
     }
 }
