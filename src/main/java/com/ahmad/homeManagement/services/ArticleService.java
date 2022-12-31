@@ -2,13 +2,16 @@ package com.ahmad.homeManagement.services;
 
 import com.ahmad.homeManagement.fileStorage.FileStoreImage;
 import com.ahmad.homeManagement.modules.ArticleRepo;
+import com.ahmad.homeManagement.modules.HistoriqueRepository;
 import com.ahmad.homeManagement.modules.tabels.Article;
 import com.ahmad.homeManagement.modules.tabels.Category;
+import com.ahmad.homeManagement.modules.tabels.Historique;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Date;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -19,11 +22,13 @@ public class ArticleService {
 
 
     private final ArticleRepo articleRepo;
+    private final HistoriqueRepository historiqueRepository;
     private IFileStorage fileStorage ;
 
 
-    public ArticleService(ArticleRepo articleRepo) throws Exception {
+    public ArticleService(ArticleRepo articleRepo, HistoriqueRepository historiqueRepository) throws Exception {
         this.articleRepo = articleRepo;
+        this.historiqueRepository = historiqueRepository;
         this.fileStorage = new FileStoreImage("homeManagement");
     }
 
@@ -34,8 +39,10 @@ public class ArticleService {
 
     public ResponseEntity<String> save(Article article) {
         try {
-            if(isArticleExist(article))
-                articleRepo.save(article);
+            if(isArticleExist(article)){
+                Article _article = articleRepo.save(article);
+                historisation(_article.getIdArt(),0,_article.getQuantity());
+            }
             else
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Article already existe");
 
@@ -57,6 +64,7 @@ public class ArticleService {
             Optional<Article> _article = articleRepo.findById(idArt);
             if(_article.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("L'article dont l'id = " + idArt + " n'existe pas");
             articleRepo.addQuantity(idArt, newQuantity);
+            historisation(idArt,_article.get().getQuantity(),_article.get().getQuantity()+newQuantity);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Quantity added old Quantity = "+ _article.get().getQuantity() + " new Quantity = " + (_article.get().getQuantity()+newQuantity) );
         }catch (Exception e){
             ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("errore while adding quantity to article id : " + idArt);
@@ -71,6 +79,7 @@ public class ArticleService {
             if(_article.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("L'article dont l'id = " + idArt + " n'existe pas");
             if(_article.get().getQuantity() - quantity < 0) return ResponseEntity.status(HttpStatus.CONFLICT).body("Quantity ne peut pas être négative");
             articleRepo.removeQuantity(idArt, quantity);
+            historisation(idArt,_article.get().getQuantity(),_article.get().getQuantity()-quantity);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Quantity removed old Quantity = "+ _article.get().getQuantity() + " new Quantity = " + (_article.get().getQuantity()-quantity) );
         }catch (Exception e){
             ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("errore while adding quantity to article id : " + idArt);
@@ -100,5 +109,10 @@ public class ArticleService {
 
     public Collection<Category> getAllCatForArt(Long idArt) {
         return articleRepo.getAllCatForArt(idArt);
+    }
+
+    private void historisation(Long idArt, int oldQuantity, int newQuantity){
+        Historique historique = new Historique(idArt,oldQuantity,newQuantity, new Date());
+        historiqueRepository.save(historique);
     }
 }

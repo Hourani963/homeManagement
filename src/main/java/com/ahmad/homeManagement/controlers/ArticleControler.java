@@ -40,7 +40,6 @@ public class ArticleControler {
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     @Produces(MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addArticle(@RequestBody Article article){
-        System.err.println(article);
         return articleService.save(article);
     }
     @PostMapping("addQuantityArticle/{idArt}")
