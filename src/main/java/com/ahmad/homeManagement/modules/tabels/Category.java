@@ -3,6 +3,7 @@ package com.ahmad.homeManagement.modules.tabels;
 import jakarta.persistence.*;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Entity
 public class Category {
@@ -32,7 +33,7 @@ public class Category {
         return article;
     }
 
-    public void setArticle(Collection<Article> article) {
-        this.article = article;
+    public void setArticle(Article article) {
+        this.article.add(article);
     }
 }

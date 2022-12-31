@@ -56,6 +56,13 @@ public class CategoryControler {
         return categoryService.ChangeCatById(idCat,category);
     }
 
-  
+    @GetMapping("{idCat}/addCatToArt/{idArt}")
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> addCatToArticle(
+            @PathVariable("idCat") Long idCat,
+            @PathVariable("idArt") Long idArt){
+        return categoryService.addCatToArticle(idCat, idArt);
+    }
 
 }

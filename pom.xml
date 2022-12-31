@@ -62,7 +62,12 @@
 			<artifactId>aws-java-sdk-s3</artifactId>
 			<version>1.11.649</version>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-amplify</artifactId>
+            <version>1.11.649</version>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>

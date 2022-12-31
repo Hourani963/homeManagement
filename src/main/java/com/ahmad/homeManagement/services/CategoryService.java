@@ -1,8 +1,11 @@
 package com.ahmad.homeManagement.services;
 
+import com.ahmad.homeManagement.modules.ArticleRepo;
 import com.ahmad.homeManagement.modules.CategoryRepository;
 import com.ahmad.homeManagement.modules.tabels.Article;
 import com.ahmad.homeManagement.modules.tabels.Category;
+import com.amazonaws.services.amplify.model.ResourceNotFoundException;
+import jakarta.ws.rs.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,9 +17,11 @@ import java.util.Optional;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final ArticleRepo articleRepo;
 
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository, ArticleRepo articleRepo) {
         this.categoryRepository = categoryRepository;
+        this.articleRepo = articleRepo;
     }
 
     public List<Category> findAll() {
@@ -62,5 +67,24 @@ public class CategoryService {
             ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("errore while changing the cat name");
         }
         return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("le nom de Category n'a pas été modifié");
+    }
+
+    public ResponseEntity<String> addCatToArticle(Long idCat, Long idArt) {
+        try {
+            Optional<Object> _cat = categoryRepository.findById(idCat).map(category -> {
+                Article _article = articleRepo.findById(idArt)
+                        .orElseThrow(() -> new ResourceNotFoundException("Not found Tag with id = " + idArt));
+                category.setArticle(_article);
+                categoryRepository.save(category);
+                return _article;
+
+            });
+
+            return ResponseEntity.status(HttpStatus.CREATED).body("Le categorie a été ajouté à l'article");
+
+
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Vérifier que les ids existe dans la bd");
+        }
     }
 }

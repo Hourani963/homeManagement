@@ -27,4 +27,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     @Modifying
     @Query("UPDATE Category c SET c.nomCat = :nomCat WHERE c.idCat = :idCat")
     void changeName(Long idCat, String nomCat);
+
+
 }
