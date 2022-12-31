@@ -3,11 +3,13 @@ package com.ahmad.homeManagement.services;
 import com.ahmad.homeManagement.fileStorage.FileStoreImage;
 import com.ahmad.homeManagement.modules.ArticleRepo;
 import com.ahmad.homeManagement.modules.tabels.Article;
+import com.ahmad.homeManagement.modules.tabels.Category;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -94,5 +96,9 @@ public class ArticleService {
         Optional<Article> article = articleRepo.findById(idArt);
 
         return fileStorage.listFilesForFolder(fileStorage.getPathAbsolutToResources()+"\\images\\"+article.get().getNom());
+    }
+
+    public Collection<Category> getAllCatForArt(Long idArt) {
+        return articleRepo.getAllCatForArt(idArt);
     }
 }

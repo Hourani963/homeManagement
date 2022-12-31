@@ -2,6 +2,7 @@ package com.ahmad.homeManagement.controlers;
 
 
 import com.ahmad.homeManagement.modules.tabels.Article;
+import com.ahmad.homeManagement.modules.tabels.Category;
 import com.ahmad.homeManagement.services.ArticleService;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.PathParam;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -80,6 +82,13 @@ public class ArticleControler {
     )
     public List<String> downloadArticleImages(@PathVariable("id") Long idArt) throws Exception {
         return articleService.downloaddArticleImages(idArt);
+    }
+
+
+    @GetMapping("{idArt}/getAllCat")
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    public Collection<Category> getAllArticleForCat(@PathVariable("idArt") Long idArt){
+        return articleService.getAllCatForArt(idArt);
     }
 
 }
