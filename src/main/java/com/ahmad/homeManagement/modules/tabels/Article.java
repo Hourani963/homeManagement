@@ -2,6 +2,7 @@ package com.ahmad.homeManagement.modules.tabels;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
 
@@ -65,6 +66,7 @@ public class Article {
 
     @ManyToMany(mappedBy = "article",fetch = FetchType.EAGER)
     @JsonBackReference
+    @JsonIgnore
     private Collection<Category> category;
 
     public Collection<Category> getCategory() {
