@@ -2,6 +2,8 @@ package com.ahmad.homeManagement.modules.tabels;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
+
 @Entity
 public class Category {
     @Id
@@ -21,5 +23,16 @@ public class Category {
 
     public void setNomCat(String nomCat) {
         this.nomCat = nomCat;
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Collection<Article> article;
+
+    public Collection<Article> getArticle() {
+        return article;
+    }
+
+    public void setArticle(Collection<Article> article) {
+        this.article = article;
     }
 }

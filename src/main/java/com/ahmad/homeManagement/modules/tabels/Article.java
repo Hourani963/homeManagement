@@ -4,6 +4,8 @@ package com.ahmad.homeManagement.modules.tabels;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
 
+import java.util.Collection;
+
 
 @Entity
 public class Article {
@@ -58,5 +60,16 @@ public class Article {
 
     public void setPhoto_link(String photo_link) {
         this.photo_link = photo_link;
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "article")
+    private Collection<Category> category;
+
+    public Collection<Category> getCategory() {
+        return category;
+    }
+
+    public void setCategory(Collection<Category> category) {
+        this.category = category;
     }
 }
