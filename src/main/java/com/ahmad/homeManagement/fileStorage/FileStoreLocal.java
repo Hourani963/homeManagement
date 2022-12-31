@@ -3,9 +3,8 @@ package com.ahmad.homeManagement.fileStorage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+
 import com.amazonaws.util.IOUtils;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 
@@ -67,9 +66,10 @@ public abstract class FileStoreLocal implements IFileStorage {
             System.err.println("errore in méthode (put) "+e);
         }
     }
-    public byte[] download(String fileName) {
+    public byte[] downloadByLink(String absoluteLink) {
+
         try {
-            File file = new File(pathAbsolutToResources+ this.folderName +"/"+fileName);
+            File file = new File(absoluteLink);
             InputStream targetStream = new FileInputStream(file);
             return IOUtils.toByteArray(targetStream);
         } catch (Exception e) {
@@ -109,6 +109,20 @@ public abstract class FileStoreLocal implements IFileStorage {
         }
         s+= postFix;
         this.pathAbsolutToResources = s;
+    }
+
+    public List<String> listFilesForFolder(String pathAbsolutToFolder) {
+        File folder = new File(pathAbsolutToFolder);
+        List<String> listFiles = new ArrayList<>();
+        for (final File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                //listFilesForFolder(fileEntry);
+            } else {
+                listFiles.add(pathAbsolutToFolder+"\\"+fileEntry.getName());
+                System.out.println(fileEntry.getName());
+            }
+        }
+        return listFiles;
     }
 
     public String getPathAbsolutToResources() {

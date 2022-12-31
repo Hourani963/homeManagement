@@ -76,16 +76,23 @@ public class ArticleService {
         return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("La valeur n'a pas été modifié");
     }
 
-    public void uploadArticleImageById(Long idArt, MultipartFile file) throws Exception {
+    public String uploadArticleImageById(Long idArt, MultipartFile file) throws Exception {
         System.err.println(file.getOriginalFilename());
         Optional<Article> article = articleRepo.findById(idArt);
-        fileStorage.setImage(file, article.get().getNom());
+        String photoLink = fileStorage.setImage(file, article.get().getNom());
+        articleRepo.addPhotoLink(idArt,photoLink);
+        return photoLink;
     }
 
     public byte[] downloaddArticleImageById(Long idArt) {
+        Optional<Article> article = articleRepo.findById(idArt);
 
-        
+        return fileStorage.downloadByLink(article.get().getPhoto_link());
+    }
 
+    public List<String> downloaddArticleImages(Long idArt) {
+        Optional<Article> article = articleRepo.findById(idArt);
 
+        return fileStorage.listFilesForFolder(fileStorage.getPathAbsolutToResources()+"\\images\\"+article.get().getNom());
     }
 }

@@ -28,4 +28,9 @@ public interface ArticleRepo extends JpaRepository<Article, Long> {
     @Modifying
     @Query("UPDATE Article a SET a.quantity = a.quantity - :quantity WHERE a.idArt = :idArt")
     void removeQuantity(Long idArt, int quantity);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Article a SET a.photo_link =  :link WHERE a.idArt = :idArt")
+    void addPhotoLink(Long idArt, String link);
 }

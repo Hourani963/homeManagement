@@ -4,16 +4,23 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 public interface IFileStorage {
 
 
-    byte[] download(String fileName);
 
+    /**
+     * using this methode to get all files in the folder so we can send files absolute links to the frontEnd so they can use the link in the download method to get the file
+     * @param pathAbsolutToFolder
+     * @return
+     */
+    List<String> listFilesForFolder(String pathAbsolutToFolder);
+    byte[] downloadByLink(String absoluteLink);
     void setImage(MultipartFile multipartFile) throws IOException;
-    void setImage(MultipartFile image, String folderName) throws IOException;
+    String setImage(MultipartFile image, String folderName) throws IOException;
     void setFolderName(String folderName);
     String getFolderName();
     String getPathAbsolutToResources();

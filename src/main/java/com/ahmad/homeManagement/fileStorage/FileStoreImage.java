@@ -29,7 +29,7 @@ public class FileStoreImage extends FileStoreLocal {
 
         save(image.getOriginalFilename(), Optional.ofNullable(imageMetadata),image.getInputStream());
     }
-    public void setImage(MultipartFile image, String folderName) throws IOException {
+    public String setImage(MultipartFile image, String folderName) throws IOException {
         isImage(image);
         isFileEmpty(image);
         this.imageMetadata = extractMetaData(image);
@@ -37,6 +37,8 @@ public class FileStoreImage extends FileStoreLocal {
         this.folderName += "\\"+folderName;
 
         save(image.getOriginalFilename(), Optional.ofNullable(imageMetadata),image.getInputStream());
+
+        return pathAbsolutToResources+"\\"+this.folderName+ "\\"+ image.getOriginalFilename();
     }
 
     public void setImageMetadata(Map<String, String> imageMetadata) {

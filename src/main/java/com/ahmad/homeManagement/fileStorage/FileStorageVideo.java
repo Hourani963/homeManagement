@@ -18,7 +18,7 @@ public class FileStorageVideo extends FileStoreLocal {
     }
 
     @Override
-    public void setImage(MultipartFile image, String folderName) throws IOException {
-
+    public String setImage(MultipartFile image, String folderName) throws IOException {
+        return null;
     }
 }

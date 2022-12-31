@@ -8,6 +8,8 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,18 +59,26 @@ public class ArticleControler {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public void uploadArticleImage(@PathVariable("id") Long idArt,
+    public String uploadArticleImage(@PathVariable("id") Long idArt,
                                             @RequestParam("file") MultipartFile file) throws Exception {
-        articleService.uploadArticleImageById(idArt,file);
+        return articleService.uploadArticleImageById(idArt,file);
     }
 
     @GetMapping(
-            path = "{id}/image/download",
-            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
+            path = "{id}/image/download"
     )
-    public byte[] downloadArticleImage(@PathVariable("id") Long idArt) throws Exception {
-        return articleService.downloaddArticleImageById(idArt);
+    public ResponseEntity<byte[]> downloadArticleImage(@PathVariable("id") Long idArt) throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        return new ResponseEntity<>(articleService.downloaddArticleImageById(idArt), headers, HttpStatus.OK);
+
+    }
+    @GetMapping(
+            path = "{id}/image/downloadAll",
+            produces = (MediaType.APPLICATION_JSON_VALUE)
+    )
+    public List<String> downloadArticleImages(@PathVariable("id") Long idArt) throws Exception {
+        return articleService.downloaddArticleImages(idArt);
     }
 
 }
