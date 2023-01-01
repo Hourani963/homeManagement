@@ -1,0 +1,37 @@
+
+
+    <mat-form-field appearance="fill">
+        <mat-label>Nom</mat-label>
+        <input [(ngModel)] = "nom" matInput>
+        
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill" floatLabel="always">
+        <mat-label>Quantité</mat-label>
+        <input [(ngModel)] = "quantity" matInput type="number" class="example-right-align" placeholder="0">
+    </mat-form-field>
+
+    <mat-divider ></mat-divider>
+    <mat-chip-listbox aria-label="Fish selection">
+        <mat-chip-option>Home</mat-chip-option>
+    </mat-chip-listbox>
+
+    <mat-chip-listbox aria-label="Fish selection">
+        <mat-chip-option>Cuisine</mat-chip-option>
+    </mat-chip-listbox>
+    <mat-divider ></mat-divider>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea [(ngModel)] = "description" matInput></textarea>
+    </mat-form-field>
+    
+    <form>
+        <label for="fileUpload">Add Image</label>
+        <input (change)="onChange($event)" type="file" id="fileUpload" #image>
+    </form>
+    <mat-divider ></mat-divider>
+
+    <button (click) ="onClick()" mat-raised-button color="primary">Add Article</button>
+
+
