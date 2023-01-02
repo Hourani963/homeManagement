@@ -8,7 +8,7 @@ public class FileStorageVideo extends FileStoreLocal {
     public FileStorageVideo(String projectName) throws Exception {
         super(projectName);
         folderName = "videos";
-        creatFolder();
+        creatFolder(folderName);
         System.out.println(this.pathAbsolutToResources+"\\"+folderName);
     }
 

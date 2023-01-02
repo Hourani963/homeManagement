@@ -38,18 +38,18 @@ public class ArticleService {
     }
 
     public ResponseEntity<String> save(Article article) {
+        Article _article = null;
         try {
-            if(isArticleExist(article)){
-                Article _article = articleRepo.save(article);
-                historisation(_article.getIdArt(),0,_article.getQuantity());
-            }
-            else
+            if (isArticleExist(article)) {
+                _article = articleRepo.save(article);
+                historisation(_article.getIdArt(), 0, _article.getQuantity());
+            } else
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Article already existe");
 
-        }catch (Exception e){
+        } catch (Exception e) {
             ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("errore while creating the article");
         }
-        return ResponseEntity.status(HttpStatus.CREATED).body("Created new article");
+        return ResponseEntity.status(HttpStatus.CREATED).body(_article.getIdArt().toString());
     }
 
 

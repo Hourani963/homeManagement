@@ -16,7 +16,7 @@ public class FileStoreImage extends FileStoreLocal {
     public FileStoreImage(String projectName) throws Exception {
         super(projectName);
         folderName = "images";
-        creatFolder();
+        creatFolder(folderName);
         System.out.println(this.pathAbsolutToResources+"\\"+folderName);
     }
 
@@ -27,18 +27,18 @@ public class FileStoreImage extends FileStoreLocal {
         this.imageMetadata = extractMetaData(image);
         this.image = image;
 
-        save(image.getOriginalFilename(), Optional.ofNullable(imageMetadata),image.getInputStream());
+        save(folderName,image.getOriginalFilename(), Optional.ofNullable(imageMetadata),image.getInputStream());
     }
     public String setImage(MultipartFile image, String folderName) throws IOException {
         isImage(image);
         isFileEmpty(image);
         this.imageMetadata = extractMetaData(image);
         this.image = image;
-        this.folderName += "\\"+folderName;
+        //this.folderName += "\\"+folderName;
 
-        save(image.getOriginalFilename(), Optional.ofNullable(imageMetadata),image.getInputStream());
+        save(this.folderName+"\\"+ folderName, image.getOriginalFilename(), Optional.ofNullable(imageMetadata),image.getInputStream());
 
-        return pathAbsolutToResources+"\\"+this.folderName+ "\\"+ image.getOriginalFilename();
+        return pathAbsolutToResources+"\\"+this.folderName+"\\"+ folderName +"\\"+ image.getOriginalFilename();
     }
 
     public void setImageMetadata(Map<String, String> imageMetadata) {

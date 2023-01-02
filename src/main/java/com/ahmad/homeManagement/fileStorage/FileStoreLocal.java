@@ -22,7 +22,7 @@ public abstract class FileStoreLocal implements IFileStorage {
         return pathAbsolutToResources;
     }
 
-    public void save(String fileName,
+    public void save(String folderName, String fileName,
                      Optional<Map<String, String>> optionalMetadata,
                      InputStream inputStream) throws IOException {
         ObjectMetadata metadata = new ObjectMetadata();
@@ -33,10 +33,10 @@ public abstract class FileStoreLocal implements IFileStorage {
             }
         });
 
-        this.put(fileName, inputStream, metadata);
+        this.put(folderName, fileName, inputStream, metadata);
     }
 
-    protected void creatFolder() throws IOException {
+    protected void creatFolder(String folderName) throws IOException {
 
         if (!Files.exists(Path.of(pathAbsolutToResources+"\\"+ folderName))) {
             try {
@@ -49,11 +49,11 @@ public abstract class FileStoreLocal implements IFileStorage {
     }
 
 
-    private void put(String fileName,
+    private void put(String folderName, String fileName,
                      InputStream inputStream,
                      ObjectMetadata metadata) throws IOException {
 
-        creatFolder();
+        creatFolder(folderName);
         try{
             byte[] buffer = new byte[inputStream.available()];
             inputStream.read(buffer);

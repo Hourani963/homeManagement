@@ -18,7 +18,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { UppyAngularDashboardModule } from '@uppy/angular';
 import {MatDividerModule} from '@angular/material/divider';
 import { FormsModule } from '@angular/forms';
-
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +43,7 @@ import { FormsModule } from '@angular/forms';
     UppyAngularDashboardModule,
     MatDividerModule,
     FormsModule,
+    HttpClientModule, 
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -12,13 +12,13 @@
     </mat-form-field>
 
     <mat-divider ></mat-divider>
-    <mat-chip-listbox aria-label="Fish selection">
-        <mat-chip-option>Home</mat-chip-option>
-    </mat-chip-listbox>
 
-    <mat-chip-listbox aria-label="Fish selection">
-        <mat-chip-option>Cuisine</mat-chip-option>
+    
+    <mat-chip-listbox *ngFor="let cat of categories[0]; index as i;" aria-label="Fish selection">
+        <mat-chip-option #cat (click)="getCatChange(cat)" >{{cat.nomCat}}</mat-chip-option>
     </mat-chip-listbox>
+   
+    
     <mat-divider ></mat-divider>
 
     <mat-form-field appearance="fill">
