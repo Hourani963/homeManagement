@@ -4,6 +4,11 @@ import { FileUploadService } from '../add-article/file-upload.service';
 import { HttpClient } from '@angular/common/http';
 import {articleUrl} from '../apiUrls'
 
+export interface Tile {
+  cols: number;
+  rows: number;
+  text: string;
+}
 
 @Component({
   selector: 'app-home',
@@ -31,6 +36,12 @@ export class HomeComponent implements OnInit{
     this.router.navigate([endPoint])
   }
 
+  
+  tiles: Tile[] = [
+    {text: 'header', cols: 4, rows: 1},
+    {text: 'buttons', cols: 1, rows: 1},
+    {text: 'category', cols: 3, rows: 1},
+  ];
 
 
 

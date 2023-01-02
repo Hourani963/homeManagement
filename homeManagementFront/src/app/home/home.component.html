@@ -1,10 +1,27 @@
 
+<mat-grid-list cols="4" rowHeight="100px">
+    <mat-grid-tile
+        *ngFor="let tile of tiles"
+        [colspan]="tile.cols"
+        [rowspan]="tile.rows"
+        >
+      <div [ngSwitch]="tile.text">
+        <div *ngSwitchCase="'header'">
+            <app-header></app-header>
+        </div>
+        <div *ngSwitchCase="'buttons'">
+            <button (click) ="onClick('addArticle')" mat-raised-button color="warn">Add Article</button>
+            <button (click) ="onClick('addCat')" mat-raised-button color="warn">cat</button>
+        </div>
+        <div *ngSwitchCase="'category'">
+            <app-cat-menu></app-cat-menu>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
 
 
-<button (click) ="onClick('addArticle')" mat-raised-button color="warn">Add Article</button>
-<button (click) ="onClick('addCat')" mat-raised-button color="warn">cat</button>
 
-<app-cat-menu></app-cat-menu>
 
 <mat-grid-list cols="8" rowHeight="1:2">
     <mat-grid-tile *ngFor="let article of allArticles[0]; index as i" >
