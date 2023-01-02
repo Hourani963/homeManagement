@@ -22,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AddCatComponent } from './add-cat/add-cat.component';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { CatMenuComponent } from './components/cat-menu/cat-menu.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
     AddArticleComponent,
     PageNotFoundComponent,
     AddCatComponent,
+    CatMenuComponent,
     
   ],
   imports: [
