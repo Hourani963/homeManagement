@@ -37,9 +37,18 @@ export class FileUploadService {
     responseType : 'text'})
   }
 
-  uploadCat(idCat:number, idArt:number):Observable<any> {
+  getCat(idCat:number, idArt:number):Observable<any> {
     
     return this.http.get(categoryUrl+"/"+idCat+"/addCatToArt/"+idArt,{
+    responseType : 'text'})
+  }
+
+  uploadCat(nomCat:string){
+    let cat ={"nomCat":nomCat}
+ 
+    console.log(cat)
+
+    return this.http.post(categoryUrl+"/addCat",cat,{
     responseType : 'text'})
   }
 }

@@ -1,4 +1,30 @@
-<app-header></app-header>
-<app-add-article></app-add-article>
 
 
+
+<button (click) ="onClick('addArticle')" mat-raised-button color="warn">Add Article</button>
+<button (click) ="onClick('addCat')" mat-raised-button color="warn">cat</button>
+
+
+
+<mat-grid-list cols="1" rowHeight="1:1">
+    <mat-grid-tile *ngFor="let article of allArticles[0]; index as i" >
+        
+            <div class="item item1">
+              <img
+                class="item-photo"
+                src= "file:///"+{{article.photo_link}}
+                alt="iphone 13 laying between plants on steel rail"
+              />
+              <div class="item-header">
+                
+                <h3 class="item-title">{{article.nom}}</h3>
+              </div>
+              <p class="item-text">
+                {{article.description}}
+              </p>
+              <a class="item-link" href="#">Click to see by yourself &rarr;</a>
+            </div>
+    </mat-grid-tile>
+    
+  </mat-grid-list>
+    

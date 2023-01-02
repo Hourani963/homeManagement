@@ -19,6 +19,11 @@ import { UppyAngularDashboardModule } from '@uppy/angular';
 import {MatDividerModule} from '@angular/material/divider';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AddCatComponent } from './add-cat/add-cat.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
     FooterComponent,
     HomeComponent,
     AddArticleComponent,
+    PageNotFoundComponent,
+    AddCatComponent,
     
   ],
   imports: [
@@ -44,6 +51,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatDividerModule,
     FormsModule,
     HttpClientModule, 
+    MatGridListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,8 +1,8 @@
 
 
-    <mat-form-field appearance="fill">
+    <mat-form-field  appearance="fill">
         <mat-label>Nom</mat-label>
-        <input [(ngModel)] = "nom" matInput>
+        <input [(ngModel)] = "nom" matInput required>
         
     </mat-form-field>
     
@@ -32,6 +32,19 @@
     </form>
     <mat-divider ></mat-divider>
 
-    <button (click) ="onClick()" mat-raised-button color="primary">Add Article</button>
+    <button (click) ="onClick()" mat-raised-button color="primary">Valider</button>
+
+
+    <div *ngIf="showArticleState">
+        <h1 *ngIf="articleAdded; else elseArticleAdded" style="color: green;" >Article Added</h1>
+    
+
+        <ng-template #elseArticleAdded>
+            <h1 style="color: red;" >Article not added</h1>
+        </ng-template>
+    </div>
+   
+        
+    
 
 

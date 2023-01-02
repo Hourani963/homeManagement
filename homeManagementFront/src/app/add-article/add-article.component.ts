@@ -19,7 +19,8 @@ export class AddArticleComponent implements OnInit{
   categories: any = [];
   categoriesSelected : any = [];
   file: any = null; 
-  loading: boolean = false; // Flag variable
+  articleAdded: boolean = false; // Flag variable
+  showArticleState : boolean = false;
   shortLink: string = "";
   errorMessage = "";
   
@@ -36,7 +37,8 @@ export class AddArticleComponent implements OnInit{
 
   onClick(){
     this.uploadArticle();
-    
+    this.articleAdded = true;
+    this.showArticleState = true;
   }
 
   onChange(event :any) {
@@ -45,40 +47,37 @@ export class AddArticleComponent implements OnInit{
   uploadArticle() {
     this.fileUploadService.uploadArticle(this.nom,this.quantity,this.description)
     .subscribe(
-      (data) => {                           //Next callback
-          this.idArticle = data;
+      (idArt) => {                           //Next callback
+          this.idArticle = idArt;
           console.log("%c id Article = "+this.idArticle, "color : green")
           if(this.file!=null){
-            this.uploadImage(data);
+            this.uploadImage(idArt);
+            this.getCat(idArt);
           }
       },
       (error) => {                              //Error callback
         console.log(error.error)
         this.errorMessage = error;
+        this.articleAdded = false;
       }
     );
     
   }
 
   uploadImage(idArticle:number) {
-    this.loading = !this.loading;
-    //console.log(this.file);
     console.log("%c id Article = "+idArticle, "color : red")
     this.fileUploadService.uploadFile(this.file,idArticle).subscribe(
         (data: any) => {
           
           // Short link via api response
           this.shortLink = data;
-
-          this.loading = false; // Flag variable 
           console.log("%c"+this.shortLink, "color : red")
-          this.uploadCat(idArticle);
         }
     );
   }
-  uploadCat(idArticle:number){
+  getCat(idArticle:number){
     for(let i=0; i<this.categoriesSelected.length; i++){
-      this.fileUploadService.uploadCat(this.categoriesSelected[i],idArticle).subscribe(
+      this.fileUploadService.getCat(this.categoriesSelected[i],idArticle).subscribe(
         (response:any)=>{
           console.log(response)
         }

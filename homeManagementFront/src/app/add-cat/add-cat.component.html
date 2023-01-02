@@ -1,0 +1,21 @@
+
+
+
+    <mat-form-field  appearance="fill">
+        <mat-label>Nom</mat-label>
+        <input [(ngModel)] = "nomCat" matInput required>
+        
+    </mat-form-field>
+
+    <h2 *ngIf="catCreatedStat; else elseCatCreated" style="color: green;">{{serverMessage}}</h2>
+
+    <ng-template #elseCatCreated>
+        <h2 style="color: red;">{{serverMessage}}</h2>
+    </ng-template>
+    
+
+    <button (click) ="onClick()" mat-raised-button color="primary">Valider</button>
+
+
+        
+    

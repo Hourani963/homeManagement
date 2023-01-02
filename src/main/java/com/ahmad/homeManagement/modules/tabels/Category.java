@@ -1,5 +1,6 @@
 package com.ahmad.homeManagement.modules.tabels;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -29,6 +30,7 @@ public class Category {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JsonManagedReference
+    @JsonIgnore
     private Collection<Article> article;
 
     public void setArticle(Collection<Article> article) {
