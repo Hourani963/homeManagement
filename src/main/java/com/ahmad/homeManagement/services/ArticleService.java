@@ -98,13 +98,13 @@ public class ArticleService {
     public byte[] downloaddArticleImageById(Long idArt) {
         Optional<Article> article = articleRepo.findById(idArt);
 
-        return fileStorage.downloadByLink(article.get().getPhoto_link());
+        return fileStorage.downloadByLink("images\\"+article.get().getPhoto_link());
     }
 
     public List<String> downloaddArticleImages(Long idArt) {
         Optional<Article> article = articleRepo.findById(idArt);
 
-        return fileStorage.listFilesForFolder(fileStorage.getPathAbsolutToResources()+"\\images\\"+article.get().getNom());
+        return fileStorage.listFilesForFolder(article.get().getNom());
     }
 
     public Collection<Category> getAllCatForArt(Long idArt) {

@@ -38,7 +38,7 @@ public class FileStoreImage extends FileStoreLocal {
 
         save(this.folderName+"\\"+ folderName, image.getOriginalFilename(), Optional.ofNullable(imageMetadata),image.getInputStream());
 
-        return pathAbsolutToResources+"\\"+this.folderName+"\\"+ folderName +"\\"+ image.getOriginalFilename();
+        return folderName +"\\"+ image.getOriginalFilename();
     }
 
     public void setImageMetadata(Map<String, String> imageMetadata) {

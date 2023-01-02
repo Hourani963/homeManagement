@@ -12,8 +12,8 @@ import {articleUrl} from '../apiUrls'
 })
 export class HomeComponent implements OnInit{
 
-
-
+  public ARICLE_URL = articleUrl
+  
   allArticles: any = [];
 
   constructor(private router : Router,private fileUploadService: FileUploadService,private http: HttpClient){}

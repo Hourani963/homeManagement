@@ -69,7 +69,7 @@ public abstract class FileStoreLocal implements IFileStorage {
     public byte[] downloadByLink(String absoluteLink) {
 
         try {
-            File file = new File(absoluteLink);
+            File file = new File(pathAbsolutToResources+"\\"+absoluteLink);
             InputStream targetStream = new FileInputStream(file);
             return IOUtils.toByteArray(targetStream);
         } catch (Exception e) {
@@ -112,7 +112,7 @@ public abstract class FileStoreLocal implements IFileStorage {
     }
 
     public List<String> listFilesForFolder(String pathAbsolutToFolder) {
-        File folder = new File(pathAbsolutToFolder);
+        File folder = new File(pathAbsolutToResources+"\\images\\"+pathAbsolutToFolder);
         List<String> listFiles = new ArrayList<>();
         for (final File fileEntry : folder.listFiles()) {
             if (fileEntry.isDirectory()) {

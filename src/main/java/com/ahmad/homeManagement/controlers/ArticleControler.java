@@ -77,6 +77,7 @@ public class ArticleControler {
         return new ResponseEntity<>(articleService.downloaddArticleImageById(idArt), headers, HttpStatus.OK);
 
     }
+
     @GetMapping(
             path = "{id}/image/downloadAll",
             produces = (MediaType.APPLICATION_JSON_VALUE)
