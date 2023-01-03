@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output,EventEmitter } from '@angular/core';
 import {Router} from '@angular/router'
 import { HttpClient } from '@angular/common/http';
 import {categoryUrl} from '../../apiUrls'
@@ -12,26 +12,45 @@ import { FileUploadService } from '../../add-article/file-upload.service';
 export class CatMenuComponent implements OnInit{
 
   categories: any = [];
-  categoriesSelected : any = [];
-  articleWithCats : any = [];
+  public categoriesSelected : any = [];
+  public articleWithCats : any = [];
   constructor(private router : Router,private http: HttpClient,private fileUploadService: FileUploadService){}
+
+  @Output() public childEvent = new EventEmitter()
 
   ngOnInit(){
     this.http.get<any>(categoryUrl).subscribe(data => {
             this.categories.push(data)
-            console.log(this.categories)
+            
     })
   }
 
+  // send articleWithCats to the parentComponent (homeComponent)
+  fireEvent(articleForCats : any = []){
+      
+      if(articleForCats.length == this.categoriesSelected.length){
+        //console.log(articleForCats)
+        this.childEvent.emit(articleForCats);
+      }
+        
+
+  }
 
   getArtsForCats(){
+    this.articleWithCats = []
     for(let i=0; i<this.categoriesSelected.length; i++){
       this.fileUploadService.getArtForCat(this.categoriesSelected[i]).subscribe(
-        (data: any) => {
+        (data) => {
           this.articleWithCats.push(data);
+          //console.log("length= "+this.articleWithCats.length)
+          this.fireEvent(this.articleWithCats);
         }
+        
     );
     }
+    const nullArticle : any = [];
+    this.fireEvent(nullArticle)
+    
   }
 
 
@@ -47,7 +66,9 @@ export class CatMenuComponent implements OnInit{
     if(!exist){
       this.categoriesSelected.push(cat.idCat)
     }
-    console.log(this.categoriesSelected)
+    //console.log(this.categoriesSelected)
+    this.getArtsForCats();
   }
+  
   
 }
