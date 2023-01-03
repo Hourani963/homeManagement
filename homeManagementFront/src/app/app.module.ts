@@ -23,6 +23,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AddCatComponent } from './add-cat/add-cat.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { CatMenuComponent } from './components/cat-menu/cat-menu.component';
+import { ArticleCardComponent } from './components/article-card/article-card.component';
+import {MatToolbarModule}from'@angular/material/toolbar'
+import  {MatIconModule} from'@angular/material/icon'
+import {MatCardModule} from '@angular/material/card'
 
 
 @NgModule({
@@ -35,6 +39,7 @@ import { CatMenuComponent } from './components/cat-menu/cat-menu.component';
     PageNotFoundComponent,
     AddCatComponent,
     CatMenuComponent,
+    ArticleCardComponent,
     
   ],
   imports: [
@@ -54,6 +59,10 @@ import { CatMenuComponent } from './components/cat-menu/cat-menu.component';
     FormsModule,
     HttpClientModule, 
     MatGridListModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatCardModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

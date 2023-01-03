@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import {articleUrl} from '../apiUrls'
 
 export interface Tile {
+  color: string;
   cols: number;
   rows: number;
   text: string;
@@ -17,17 +18,12 @@ export interface Tile {
 })
 export class HomeComponent implements OnInit{
 
-  public ARICLE_URL = articleUrl
-  
-  allArticles: any = [];
 
-  constructor(private router : Router,private fileUploadService: FileUploadService,private http: HttpClient){}
+
+  constructor(private router : Router){}
 
   ngOnInit(){
-    this.http.get<any>(articleUrl).subscribe(data => {
-            this.allArticles.push(data)
-            console.log(this.allArticles)
-    })
+    
   }
 
 
@@ -38,9 +34,9 @@ export class HomeComponent implements OnInit{
 
   
   tiles: Tile[] = [
-    {text: 'header', cols: 4, rows: 1},
-    {text: 'buttons', cols: 1, rows: 1},
-    {text: 'category', cols: 3, rows: 1},
+    {text: 'buttons', cols: 1, rows: 1, color: 'lightpink'},
+    {text: 'category', cols: 3, rows: 1, color: '#DDBDF1'},
+    {text: 'articles', cols: 4, rows: 8, color: '#DDBDF1'},
   ];
 
 

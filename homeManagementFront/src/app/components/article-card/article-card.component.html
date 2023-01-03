@@ -1,0 +1,27 @@
+
+
+<section class="articles">
+  <h1>Most viewed articles</h1>
+  <div class="features">
+    <mat-card *ngFor="let article of allArticles[0];" class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{article.nom}}</mat-card-title>
+        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="{{ARICLE_URL}}/{{article.idArt}}/image/download" alt="Photo of a Shiba Inu">
+      <mat-card-content>
+        <p>
+          {{article.description}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
+    </mat-card>
+    
+  </div>
+</section>
+
+  

@@ -4,18 +4,28 @@
         *ngFor="let tile of tiles"
         [colspan]="tile.cols"
         [rowspan]="tile.rows"
-        >
+        [style.background]="tile.color"
+        
+    >
+
       <div [ngSwitch]="tile.text">
-        <div *ngSwitchCase="'header'">
-            <app-header></app-header>
-        </div>
+
+       
+
         <div *ngSwitchCase="'buttons'">
             <button (click) ="onClick('addArticle')" mat-raised-button color="warn">Add Article</button>
             <button (click) ="onClick('addCat')" mat-raised-button color="warn">cat</button>
         </div>
+
         <div *ngSwitchCase="'category'">
             <app-cat-menu></app-cat-menu>
         </div>
+
+        
+          <div *ngSwitchCase="'articles'" cols="4" rowHeight="1:2">
+            <app-article-card></app-article-card>
+          </div>
+         
       </div>
     </mat-grid-tile>
   </mat-grid-list>
@@ -23,27 +33,5 @@
 
 
 
-<mat-grid-list cols="8" rowHeight="1:2">
-    <mat-grid-tile *ngFor="let article of allArticles[0]; index as i" >
-        <div class="features">
-            <div class="item item1">
-                <img
-                  class="item-photo"
-                  src= "{{ARICLE_URL}}/{{article.idArt}}/image/download"
-                  alt="photo d'article"
-                />
-                <div class="item-header">
-                  
-                  <h3 class="item-title">{{article.nom}}</h3>
-                </div>
-                <p class="item-text">
-                  {{article.description}}
-                </p>
-                <a class="item-link" href="#">Edit Article &rarr;</a>
-              </div>
-        </div>
-            
-    </mat-grid-tile>
-    
-  </mat-grid-list>
+
     
