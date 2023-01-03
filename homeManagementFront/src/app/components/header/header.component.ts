@@ -6,5 +6,5 @@ import { IconSetService } from '@coreui/icons-angular';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-    
+  value = 'Clear me';
 }
