@@ -1,18 +1,26 @@
   
 <mat-card  class="example-card">
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
+    <div mat-card-avatar class="example-header-image" style="background-image: url({{ARICLE_URL}}/{{article.idArt}}/image/download)"></div>
     <mat-card-title>{{article.nom}}</mat-card-title>
-    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    <mat-card-subtitle>{{article.idArt}}</mat-card-subtitle>
   </mat-card-header>
   <img mat-card-image src="{{ARICLE_URL}}/{{article.idArt}}/image/download" alt="Photo of a Shiba Inu">
   <mat-card-content>
+    
     <p>
       {{article.description}}
     </p>
+    <h1>{{article.quantity}}</h1>
   </mat-card-content>
+
   <mat-card-actions>
-    <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button>
+    <button (click)="addArticleQuantity(article.idArt)" mat-mini-fab color="primary" >
+      <mat-icon >add</mat-icon>
+    
+    </button>
+    <button (click)="removeArticleQuantity(article.idArt)" mat-mini-fab color="primary">
+      <mat-icon >remove</mat-icon>
+    </button>
   </mat-card-actions>
 </mat-card>

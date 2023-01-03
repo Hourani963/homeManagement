@@ -63,4 +63,16 @@ export class FileUploadService {
     return this.http.post(categoryUrl+"/addCat",cat,{
     responseType : 'text'})
   }
+
+  addArticleQuantity(idArticle:number, quantity : number){
+    let article ={"quantity": quantity}
+    return this.http.post(articleUrl+"/addQuantityArticle/"+idArticle,article,{
+      responseType : 'text'})
+  }
+
+  removeArticleQuantity(idArticle:number, quantity : number){
+    let article ={"quantity": quantity}
+    return this.http.post(articleUrl+"/removeQuantityArticle/"+idArticle,article,{
+      responseType : 'text'})
+  }
 }
