@@ -1,5 +1,3 @@
-
-
 <mat-chip-listbox *ngFor="let cat of categories[0]; index as i" aria-label="Fish selection">
-    <mat-chip-option color="warn">{{cat.nomCat}}</mat-chip-option>
+    <mat-chip-option #cat (click)="getCatChange(cat)" color="warn">{{cat.nomCat}}</mat-chip-option>
 </mat-chip-listbox>

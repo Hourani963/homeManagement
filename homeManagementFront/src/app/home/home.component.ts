@@ -18,12 +18,15 @@ export interface Tile {
 })
 export class HomeComponent implements OnInit{
 
+  public allArticles: any = [];
 
-
-  constructor(private router : Router){}
+  constructor(private router : Router,private http: HttpClient){}
 
   ngOnInit(){
-    
+    this.http.get<any>(articleUrl).subscribe(data => {
+      this.allArticles.push(data)
+      console.log(this.allArticles)
+})
   }
 
 

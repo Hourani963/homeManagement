@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Router} from '@angular/router'
 import {articleUrl} from '../../apiUrls'
@@ -12,18 +12,14 @@ import {articleUrl} from '../../apiUrls'
 export class ArticleCardComponent implements OnInit{
   public ARICLE_URL = articleUrl;
 
-  public allArticles: any = [];
-
-
   constructor(private router : Router,private http: HttpClient){}
 
 
+  @Input('parentData') public article:any;
+
+  
   ngOnInit(){
-    this.http.get<any>(articleUrl).subscribe(data => {
-            this.allArticles.push(data)
-            
-            console.log(this.allArticles)
-    })
+    
   }
 
 

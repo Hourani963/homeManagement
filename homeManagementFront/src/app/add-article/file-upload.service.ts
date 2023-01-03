@@ -12,7 +12,7 @@ export class FileUploadService {
     
   constructor(private http:HttpClient) { }
   
-  // Returns an observable
+  // Sent file to server
   uploadFile(file : any, idArticle : number):Observable<any> {
   
       // Create form data
@@ -26,6 +26,7 @@ export class FileUploadService {
       return this.http.post(articleUrl+"/"+idArticle+"/image/upload", formData,{
       responseType : 'text'})
   }
+  // add new article
   uploadArticle(nom : string, quantity : number,description:string):Observable<any> {
 
 
@@ -37,12 +38,25 @@ export class FileUploadService {
     responseType : 'text'})
   }
 
+  // add Cat to article
   getCat(idCat:number, idArt:number):Observable<any> {
     
     return this.http.get(categoryUrl+"/"+idCat+"/addCatToArt/"+idArt,{
     responseType : 'text'})
   }
-
+  // get all article for cat
+  getArtForCat(idCat:number){
+    return this.http.get(categoryUrl+"/"+idCat+"/getAllArticles",{
+      responseType : 'text'})
+  }
+  // get all cat for article
+  // TODO
+  getCatForArt(idArt:number){
+    return this.http.get(categoryUrl+"/"+idArt+"/getAllCat",{
+      responseType : 'text'})
+  }
+  //
+  // add new cat
   uploadCat(nomCat:string){
     let cat ={"nomCat":nomCat}
  

@@ -23,7 +23,13 @@
 
         
           <div *ngSwitchCase="'articles'" cols="4" rowHeight="1:2">
-            <app-article-card></app-article-card>
+            <section class="articles">
+              <h1>Most viewed articles</h1>
+              <div class="features">
+                <app-article-card *ngFor="let article of allArticles[0];" [parentData]="article"></app-article-card>
+              </div>
+            </section>
+            
           </div>
          
       </div>

@@ -7,3 +7,18 @@ button{
     margin: 10px;
 }
  
+
+.articles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  
+  max-width: 110rem;
+  column-gap: 2rem;
+  row-gap: 2rem;
+}
