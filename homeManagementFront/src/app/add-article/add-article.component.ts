@@ -52,8 +52,9 @@ export class AddArticleComponent implements OnInit{
           console.log("%c id Article = "+this.idArticle, "color : green")
           if(this.file!=null){
             this.uploadImage(idArt);
-            this.getCat(idArt);
+            
           }
+          this.getCat(idArt);
       },
       (error) => {                              //Error callback
         console.log(error.error)
