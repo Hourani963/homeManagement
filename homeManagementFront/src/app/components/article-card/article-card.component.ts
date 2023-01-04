@@ -32,10 +32,10 @@ export class ArticleCardComponent implements OnInit, OnChanges {
     this.router.navigate(['/home']);
   }
 
-  async addArticleQuantity(idArt: number){
+  addArticleQuantity(idArt: number){
     this.uploadService.addArticleQuantity(idArt, 1).subscribe(
-      async  data => {
-        this.quantityMessage = await  data;
+      data => {
+        this.quantityMessage =  data;
         console.log(data)
       }
     )

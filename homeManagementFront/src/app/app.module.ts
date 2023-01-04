@@ -27,7 +27,7 @@ import { ArticleCardComponent } from './components/article-card/article-card.com
 import {MatToolbarModule}from'@angular/material/toolbar'
 import  {MatIconModule} from'@angular/material/icon'
 import {MatCardModule} from '@angular/material/card'
-
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -62,6 +62,7 @@ import {MatCardModule} from '@angular/material/card'
     MatToolbarModule,
     MatIconModule,
     MatCardModule,
+    MatPaginatorModule,
 
   ],
   providers: [],
