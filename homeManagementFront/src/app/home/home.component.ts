@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit,ViewChild } from '@angular/core';
 import {Router} from '@angular/router'
 import { FileUploadService } from '../add-article/file-upload.service';
+import  {ArticlesService} from '../articles.service'
 import { HttpClient } from '@angular/common/http';
 import {articleUrl} from '../apiUrls'
 import {MatPaginator} from'@angular/material/paginator'
@@ -22,7 +23,7 @@ export class HomeComponent implements OnInit ,AfterViewInit{
   public allArticles: any = [];
   public allArticlesFixe: any = [];
   public articleWithCats: any = [];
-  constructor(private router : Router,private http: HttpClient){}
+  constructor(private router : Router,private http: HttpClient, private articleService : ArticlesService){}
 
   @ViewChild(MatPaginator)
   pagination : MatPaginator
@@ -30,8 +31,9 @@ export class HomeComponent implements OnInit ,AfterViewInit{
   ngOnInit(){
     this.http.get<any>(articleUrl).subscribe(data => {
       this.allArticlesFixe.push(data)
-      //console.log(this.allArticles)
+      //console.log(this.allArticlesFixe)
       this.leadOnePage();
+      this.articleService.setArticels(this.allArticlesFixe[0]);
      })
   }
   
@@ -53,7 +55,7 @@ export class HomeComponent implements OnInit ,AfterViewInit{
           newArr =newArr.concat(articleForCats[i])
       }
       this.allArticles.push(newArr)
-      console.log(this.allArticles )
+      //console.log(this.allArticles )
     }else{
       this.ngOnInit()
     }
@@ -75,13 +77,13 @@ export class HomeComponent implements OnInit ,AfterViewInit{
   leadOnePage(){
     var fristElement = this.pagination.pageIndex 
     var lastElement = this.pagination.pageIndex + 3
-    console.log("firs element = "+ fristElement)
-    console.log("last element = "+ lastElement)
+   // console.log("firs element = "+ fristElement)
+    //console.log("last element = "+ lastElement)
       var articlesOnePage : any = []
       for(let i=fristElement; i<=lastElement; i++){
         articlesOnePage.push(this.allArticlesFixe[0][i])
       }
-      console.log(articlesOnePage)
+      //console.log(articlesOnePage)
       this.allArticles = []
       this.allArticles.push(articlesOnePage)
   }

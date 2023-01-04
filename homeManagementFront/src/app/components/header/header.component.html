@@ -8,7 +8,11 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Recherche d'Articel</mat-label>
-      <input matInput placeholder="Placeholder">
+      <input list="list-articles" matInput placeholder="Placeholder">
+        <datalist  id="list-articles">
+              <option *ngFor="let article of allArticles[0]" value={{article.nom}}></option>
+        </datalist>
+
       <mat-icon color="primary" matSuffix>search</mat-icon>
       <mat-hint>Hint</mat-hint>
     </mat-form-field>
