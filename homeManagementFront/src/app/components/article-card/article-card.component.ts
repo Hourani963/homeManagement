@@ -15,21 +15,26 @@ export class ArticleCardComponent implements OnInit, OnChanges {
 
   constructor(private router : Router,private http: HttpClient, private uploadService : FileUploadService){}
 
+  public catsForArt : any = [];
 
   @Input('parentData') public article:any;
   public quantityMessage = '';
 
   ngOnInit(){
-    
+    this.getAllCatForArt()
   }
 
   ngOnChanges(){
     
   }
-  reloadComponent() {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate(['/home']);
+
+  getAllCatForArt(){
+      this.uploadService.getCatForArt(this.article.idArt).subscribe(
+        (data : any) =>{
+          this.catsForArt.push(data)
+        }
+      )
+      
   }
 
   addArticleQuantity(idArt: number){

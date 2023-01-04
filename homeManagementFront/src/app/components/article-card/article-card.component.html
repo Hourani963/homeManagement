@@ -8,11 +8,20 @@
     </mat-card-header>
     <img mat-card-image src="{{ARICLE_URL}}/{{article.idArt}}/image/download" alt="Photo of a Shiba Inu">
     <mat-card-content>
-      
       <p>
         {{article.description}}
       </p>
+      
+      <mat-divider ></mat-divider>
+
+      <mat-chip *ngFor="let cat of catsForArt[0];">
+        {{cat.nomCat}}
+      </mat-chip>
+
+      <mat-divider ></mat-divider>
+
       <h1>{{article.quantity}}</h1>
+      
     </mat-card-content>
   
     <mat-card-actions>

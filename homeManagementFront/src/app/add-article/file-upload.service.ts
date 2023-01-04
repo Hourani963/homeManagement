@@ -49,9 +49,8 @@ export class FileUploadService {
     return this.http.get(categoryUrl+"/"+idCat+"/getAllArticles")
   }
   // get all cat for article
-  // TODO
   getCatForArt(idArt:number){
-    return this.http.get(categoryUrl+"/"+idArt+"/getAllCat")
+    return this.http.get(articleUrl+"/"+idArt+"/getAllCat")
   }
   //
   // add new cat
