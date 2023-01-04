@@ -5,7 +5,10 @@ import  {ArticlesService} from '../articles.service'
 import { HttpClient } from '@angular/common/http';
 import {articleUrl} from '../apiUrls'
 import {MatPaginator} from'@angular/material/paginator'
-import { tap } from 'rxjs';
+import { first, tap } from 'rxjs';
+import {MatTableDataSource}from '@angular/material/table'
+
+
 export interface Tile {
   color: string;
   cols: number;
@@ -20,27 +23,38 @@ export interface Tile {
 })
 export class HomeComponent implements OnInit ,AfterViewInit{
 
+  // allArticles used to show
   public allArticles: any = [];
+  // used to get raw data from back
   public allArticlesFixe: any = [];
-  public articleWithCats: any = [];
-  constructor(private router : Router,private http: HttpClient, private articleService : ArticlesService){}
+  
+  public countArticle : number = 0;
 
-  @ViewChild(MatPaginator)
-  pagination : MatPaginator
+  constructor(private router : Router,private http: HttpClient, private articleService : ArticlesService){}
+  
+
+  dataSource = new MatTableDataSource(this.allArticlesFixe)
+  @ViewChild('paginator') paginator : MatPaginator
 
   ngOnInit(){
+    this.dataSource.paginator = this.paginator
     this.http.get<any>(articleUrl).subscribe(data => {
       this.allArticlesFixe.push(data)
+      this.countArticle = data.length
+      //this.allArticles.push(data)
       //console.log(this.allArticlesFixe)
       this.leadOnePage();
+      // to share data with search bar
       this.articleService.setArticels(this.allArticlesFixe[0]);
      })
+     
   }
   
   ngAfterViewInit(): void {
-    this.pagination.page.pipe(
+    this.paginator.page.pipe(
       tap(()=>this.leadOnePage())
     ).subscribe();
+    
   }
 
   getArticleforCats(articleForCats : any){
@@ -55,6 +69,8 @@ export class HomeComponent implements OnInit ,AfterViewInit{
           newArr =newArr.concat(articleForCats[i])
       }
       this.allArticles.push(newArr)
+      this.countArticle = this.allArticles[0].length
+      this.leadOnePage()
       //console.log(this.allArticles )
     }else{
       this.ngOnInit()
@@ -67,25 +83,30 @@ export class HomeComponent implements OnInit ,AfterViewInit{
     this.router.navigate([endPoint])
   }
 
-  
+
+//lightpink
+// #DDBDF1
   tiles: Tile[] = [
-    {text: 'buttons', cols: 1, rows: 1, color: 'lightpink'},
-    {text: 'category', cols: 3, rows: 1, color: '#DDBDF1'},
-    {text: 'articles', cols: 4, rows: 8, color: '#DDBDF1'},
+    {text: 'buttons', cols: 1, rows: 1, color: ''},
+    {text: 'category', cols: 3, rows: 1, color: ''},
+    
   ];
 
   leadOnePage(){
-    var fristElement = this.pagination.pageIndex 
-    var lastElement = this.pagination.pageIndex + 3
-   // console.log("firs element = "+ fristElement)
-    //console.log("last element = "+ lastElement)
+
+    var firstElemnt = this.paginator? this.paginator.pageIndex*this.paginator.pageSize:0;
+    var lastElemnt = this.paginator? ((this.paginator.pageIndex*this.paginator.pageSize) + this.paginator.pageSize) : 5;
+    console.log("%c first Element = "+firstElemnt ,"color:green")
+    console.log("%c first Element = "+lastElemnt ,"color:red")
       var articlesOnePage : any = []
-      for(let i=fristElement; i<=lastElement; i++){
-        articlesOnePage.push(this.allArticlesFixe[0][i])
+      for(let i=firstElemnt; i<lastElemnt; i++){
+        if(i<this.countArticle)
+          articlesOnePage.push(this.allArticlesFixe[0][i])
       }
       //console.log(articlesOnePage)
       this.allArticles = []
       this.allArticles.push(articlesOnePage)
+      
   }
 
 

@@ -11,7 +11,9 @@ h1 {
 
 
   .example-card {
-    max-width: 400px;
+    background-color: #CFFFCD;
+    max-width: 350px;
+    margin-bottom: 30px;
   }
   
   .example-header-image {
@@ -20,8 +22,8 @@ h1 {
   }
 
   img{
-    width: 400px;
-    height: 500px;
+    width: 350px;
+    height: 400px;
     object-fit: cover;
   }
   p{

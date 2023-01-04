@@ -9,9 +9,6 @@
     >
 
       <div [ngSwitch]="tile.text">
-
-       
-
         <div *ngSwitchCase="'buttons'">
             <button (click) ="onClick('addArticle')" mat-raised-button color="warn">Add Article</button>
             <button (click) ="onClick('addCat')" mat-raised-button color="warn">cat</button>
@@ -20,25 +17,23 @@
         <div *ngSwitchCase="'category'">
             <app-cat-menu  (childEvent)="getArticleforCats($event)"></app-cat-menu>
         </div>
-
-        
-          <div *ngSwitchCase="'articles'" cols="4" rowHeight="1:2">
-            <section class="articles">
-              <div class="features">
-                <app-article-card *ngFor="let article of allArticles[0];" [parentData]="article"></app-article-card>
-              </div>
-            </section>
-            
-          </div>
-         
       </div>
     </mat-grid-tile>
   </mat-grid-list>
 
-  <mat-paginator [length]="100"
-              [pageSize]="4"
-              [pageSizeOptions]="[5, 10, 25, 100]"
-              aria-label="Select page">
+  <section class="articles">
+    <div class="features">
+      <app-article-card *ngFor="let article of allArticles[0];" [parentData]="article"></app-article-card>
+    </div>
+  </section>
+  
+  <mat-paginator
+              #paginator
+              [length]="countArticle"
+              [pageSize]="5"
+              [pageSizeOptions]="[20,40,60,80]"
+              aria-label="Select page"
+              showFirstLastButtons="">
   </mat-paginator>
 
 
