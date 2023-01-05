@@ -7,11 +7,18 @@ import com.ahmad.homeManagement.modules.HistoriqueRepository;
 import com.ahmad.homeManagement.modules.tabels.Article;
 import com.ahmad.homeManagement.modules.tabels.Category;
 import com.ahmad.homeManagement.modules.tabels.Historique;
+import org.bytedeco.javacv.FFmpegFrameGrabber;
+import org.bytedeco.javacv.Frame;
+import org.bytedeco.javacv.FrameGrabber;
+import org.bytedeco.javacv.Java2DFrameConverter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Collection;
@@ -124,12 +131,33 @@ public class ArticleService {
         historiqueRepository.save(historique);
     }
 
-    public String uploadArticleVideo(Long idArt, MultipartFile file) throws IOException {
+    public String uploadArticleVideo(Long idArt, MultipartFile file) throws IOException, FrameGrabber.Exception {
         Optional<Article> article = articleRepo.findById(idArt);
         String videoLing = videoFileStorage.setVideo(file, article.get().getNom());
+
+        this.getImageFromVideo(videoFileStorage.getPathAbsolutToResources()+"\\videos\\"+videoLing,
+                videoFileStorage.getPathAbsolutToResources()+"\\videos\\"+article.get().getNom());
+
         return videoLing;
     }
+    private void getImageFromVideo(String videoPath, String saveImagePath) throws FrameGrabber.Exception, IOException {
+        FFmpegFrameGrabber g = new FFmpegFrameGrabber(videoPath);
+        g.start();
 
+        Java2DFrameConverter converter = new Java2DFrameConverter();
+
+        // (i) is the number of photos tha I need
+        for (int i = 0 ; i < 1 ; i++) {
+
+            Frame frame = g.grabImage(); // It is important to use grabImage() to get a frame that can be turned into a BufferedImage
+
+            BufferedImage bi = converter.convert(frame);
+
+            ImageIO.write(bi, "jpeg", new File(saveImagePath+ ".jpeg"));
+        }
+
+        g.stop();
+    }
     public List<String> downloaddArticleVideos(Long idArt) {
         Optional<Article> article = articleRepo.findById(idArt);
         return videoFileStorage.listFilesForFolder(article.get().getNom(),"videos");
