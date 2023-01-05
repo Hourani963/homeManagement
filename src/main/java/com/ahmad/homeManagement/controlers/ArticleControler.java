@@ -5,10 +5,7 @@ import com.ahmad.homeManagement.modules.tabels.Article;
 import com.ahmad.homeManagement.modules.tabels.Category;
 import com.ahmad.homeManagement.services.ArticleService;
 import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.Response;
-import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -64,17 +61,27 @@ public class ArticleControler {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public String uploadArticleImage(@PathVariable("id") Long idArt,
-                                            @RequestParam("file") MultipartFile file) throws Exception {
-        return articleService.uploadArticleImageById(idArt,file);
+                                            @RequestParam("file") MultipartFile file,
+                                     @RequestParam("isArtProfilePhoto") boolean isArtProfilePhoto) throws Exception {
+        return articleService.uploadArticleImageById(idArt,file,isArtProfilePhoto);
     }
 
     @GetMapping(
             path = "{id}/image/download"
     )
-    public ResponseEntity<byte[]> downloadArticleImage(@PathVariable("id") Long idArt) throws Exception {
+    public ResponseEntity<byte[]> downloadArticleProfileImage(@PathVariable("id") Long idArt) throws Exception {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
-        return new ResponseEntity<>(articleService.downloaddArticleImageById(idArt), headers, HttpStatus.OK);
+        return new ResponseEntity<>(articleService.downloadArticleProfileImage(idArt), headers, HttpStatus.OK);
+
+    }
+    @GetMapping(
+            path = "{id}/image/download/{nomImage}"
+    )
+    public ResponseEntity<byte[]> downloadArticleImage(@PathVariable("id") Long idArt,@PathVariable("nomImage") String nomImage) throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        return new ResponseEntity<>(articleService.downloaddArticleImage(idArt,nomImage), headers, HttpStatus.OK);
 
     }
 
@@ -86,6 +93,31 @@ public class ArticleControler {
         return articleService.downloaddArticleImages(idArt);
     }
 
+    @PostMapping(
+            path = "{id}/video/upload",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public String uploadArticleVideo(@PathVariable("id") Long idArt,
+                                     @RequestParam("file") MultipartFile file) throws Exception {
+        return articleService.uploadArticleVideo(idArt,file);
+    }
+    @GetMapping(
+            path = "{id}/video/downloadAll",
+            produces = (MediaType.APPLICATION_JSON_VALUE)
+    )
+    public List<String> downloadArticleVideos(@PathVariable("id") Long idArt) throws Exception {
+        return articleService.downloaddArticleVideos(idArt);
+    }
+    @GetMapping(
+            path = "{id}/video/download/{videoName}"
+    )
+    public ResponseEntity<byte[]> downloadArticleVideo(@PathVariable("id") Long idArt, @PathVariable("videoName") String videoFileName) throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        return new ResponseEntity<>(articleService.downloadArticleVideo(idArt,videoFileName), headers, HttpStatus.OK);
+
+    }
 
     @GetMapping("{idArt}/getAllCat")
     @Produces(MediaType.APPLICATION_JSON_VALUE)

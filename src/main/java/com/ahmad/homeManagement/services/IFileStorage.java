@@ -3,10 +3,7 @@ package com.ahmad.homeManagement.services;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 public interface IFileStorage {
 
@@ -17,11 +14,13 @@ public interface IFileStorage {
      * @param pathAbsolutToFolder
      * @return
      */
-    List<String> listFilesForFolder(String pathAbsolutToFolder);
+    List<String> listFilesForFolder(String pathAbsolutToFolder, String ImageOrVideo);
     byte[] downloadByLink(String absoluteLink);
     void setImage(MultipartFile multipartFile) throws IOException;
     String setImage(MultipartFile image, String folderName) throws IOException;
     void setFolderName(String folderName);
     String getFolderName();
     String getPathAbsolutToResources();
+
+    String setVideo(MultipartFile image, String folderName) throws IOException;
 }

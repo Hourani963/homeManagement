@@ -20,7 +20,7 @@ export class FileUploadService {
         
       // Store form name as "file" with file data
       formData.append("file", file, file.name);
-        
+      formData.append("isArtProfilePhoto", "false");
       // Make http post request over api
       // with formData as req
       return this.http.post(articleUrl+"/"+idArticle+"/image/upload", formData,{

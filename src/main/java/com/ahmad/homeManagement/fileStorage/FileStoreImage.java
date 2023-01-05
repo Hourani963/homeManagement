@@ -41,6 +41,12 @@ public class FileStoreImage extends FileStoreLocal {
         return folderName +"\\"+ image.getOriginalFilename();
     }
 
+    @Override
+    public String setVideo(MultipartFile image, String folderName) {
+
+        return folderName;
+    }
+
     public void setImageMetadata(Map<String, String> imageMetadata) {
         this.imageMetadata = imageMetadata;
     }

@@ -111,14 +111,14 @@ public abstract class FileStoreLocal implements IFileStorage {
         this.pathAbsolutToResources = s;
     }
 
-    public List<String> listFilesForFolder(String pathAbsolutToFolder) {
-        File folder = new File(pathAbsolutToResources+"\\images\\"+pathAbsolutToFolder);
+    public List<String> listFilesForFolder(String articleNom, String ImageOrVideo) {
+        File folder = new File(pathAbsolutToResources+"\\"+ImageOrVideo+"\\"+articleNom);
         List<String> listFiles = new ArrayList<>();
         for (final File fileEntry : folder.listFiles()) {
             if (fileEntry.isDirectory()) {
                 //listFilesForFolder(fileEntry);
             } else {
-                listFiles.add(pathAbsolutToFolder+"\\"+fileEntry.getName());
+                listFiles.add(fileEntry.getName());
                 System.out.println(fileEntry.getName());
             }
         }

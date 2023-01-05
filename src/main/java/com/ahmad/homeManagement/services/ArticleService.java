@@ -1,5 +1,6 @@
 package com.ahmad.homeManagement.services;
 
+import com.ahmad.homeManagement.fileStorage.FileStorageVideo;
 import com.ahmad.homeManagement.fileStorage.FileStoreImage;
 import com.ahmad.homeManagement.modules.ArticleRepo;
 import com.ahmad.homeManagement.modules.HistoriqueRepository;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Collection;
 import java.util.List;
@@ -23,13 +25,15 @@ public class ArticleService {
 
     private final ArticleRepo articleRepo;
     private final HistoriqueRepository historiqueRepository;
-    private IFileStorage fileStorage ;
+    private IFileStorage imageFileStorage;
+    private IFileStorage videoFileStorage;
 
 
     public ArticleService(ArticleRepo articleRepo, HistoriqueRepository historiqueRepository) throws Exception {
         this.articleRepo = articleRepo;
         this.historiqueRepository = historiqueRepository;
-        this.fileStorage = new FileStoreImage("homeManagement");
+        this.imageFileStorage = new FileStoreImage("homeManagement");
+        this.videoFileStorage = new FileStorageVideo("homeManagement");
     }
 
 
@@ -87,24 +91,28 @@ public class ArticleService {
         return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("La valeur n'a pas été modifié");
     }
 
-    public String uploadArticleImageById(Long idArt, MultipartFile file) throws Exception {
-        System.err.println(file.getOriginalFilename());
+    public String uploadArticleImageById(Long idArt, MultipartFile file, boolean isArticleProfilePhoto) throws Exception {
         Optional<Article> article = articleRepo.findById(idArt);
-        String photoLink = fileStorage.setImage(file, article.get().getNom());
-        articleRepo.addPhotoLink(idArt,photoLink);
+        String photoLink = imageFileStorage.setImage(file, article.get().getNom());
+        if(isArticleProfilePhoto)
+            articleRepo.addPhotoLink(idArt,photoLink);
         return photoLink;
     }
 
-    public byte[] downloaddArticleImageById(Long idArt) {
+    public byte[] downloadArticleProfileImage(Long idArt) {
         Optional<Article> article = articleRepo.findById(idArt);
 
-        return fileStorage.downloadByLink("images\\"+article.get().getPhoto_link());
+        return imageFileStorage.downloadByLink("images\\"+article.get().getPhoto_link());
+    }
+    public byte[] downloaddArticleImage(Long idArt, String nomImage) {
+        Optional<Article> article = articleRepo.findById(idArt);
+        return imageFileStorage.downloadByLink("images\\"+article.get().getNom()+"\\"+nomImage);
     }
 
     public List<String> downloaddArticleImages(Long idArt) {
         Optional<Article> article = articleRepo.findById(idArt);
 
-        return fileStorage.listFilesForFolder(article.get().getNom());
+        return imageFileStorage.listFilesForFolder(article.get().getNom(),"images");
     }
 
     public Collection<Category> getAllCatForArt(Long idArt) {
@@ -114,5 +122,22 @@ public class ArticleService {
     private void historisation(Long idArt, int oldQuantity, int newQuantity){
         Historique historique = new Historique(idArt,oldQuantity,newQuantity, new Date());
         historiqueRepository.save(historique);
+    }
+
+    public String uploadArticleVideo(Long idArt, MultipartFile file) throws IOException {
+        Optional<Article> article = articleRepo.findById(idArt);
+        String videoLing = videoFileStorage.setVideo(file, article.get().getNom());
+        return videoLing;
+    }
+
+    public List<String> downloaddArticleVideos(Long idArt) {
+        Optional<Article> article = articleRepo.findById(idArt);
+        return videoFileStorage.listFilesForFolder(article.get().getNom(),"videos");
+    }
+
+    public byte[] downloadArticleVideo(Long idArt, String videoFileName) {
+        Optional<Article> article = articleRepo.findById(idArt);
+
+        return videoFileStorage.downloadByLink("videos\\"+article.get().getNom()+"\\"+videoFileName);
     }
 }
