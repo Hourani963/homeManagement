@@ -1,8 +1,14 @@
 package com.ahmad.homeManagement.fileStorage;
 
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.DirectoryNotEmptyException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
@@ -58,5 +64,24 @@ public class FileStoreImage extends FileStoreLocal {
                 ("image/png"),
                 ("image/gif")).contains(file.getContentType()))
             throw new IllegalStateException("File must be an image [" + file.getContentType() + "]");
+    }
+
+    @Override
+    public void deleteFile(String nomPerformer, String nomImage) throws CantDeleteFileException, IOException {
+        System.err.println(pathAbsolutToResources+"\\images\\"+ nomPerformer + "\\"+ nomImage);
+        //File image = new File(pathAbsolutToResources+"\\images\\"+ nomPerformer + "\\"+ nomImage);
+
+        try {
+            Files.delete(Path.of(pathAbsolutToResources + "\\images\\" + nomPerformer + "\\" + nomImage));
+        } catch (NoSuchFileException x) {
+            System.err.format("%s: no such" + " file or directory%n", pathAbsolutToResources+"\\images\\"+ nomPerformer + "\\"+ nomImage);
+        } catch (DirectoryNotEmptyException x) {
+            System.err.format("%s not empty%n", pathAbsolutToResources+"\\images\\"+ nomPerformer + "\\"+ nomImage);
+        } catch (IOException x) {
+            // File permission problems are caught here.
+            System.err.println(x);
+            throw new CantDeleteFileException("cant delete image");
+        }
+
     }
 }

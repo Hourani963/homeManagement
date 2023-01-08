@@ -187,13 +187,6 @@ export class ArticleProfileComponent implements OnInit, AfterViewInit{
 
   deleteVideo(nomPerformer : string, nomVid : string){
 
-    // these 3 line are very important to delete the file
-    // I have to hide the file that i want to delete or it will be impossible to do that
-    this.showVideos =false
-    this.showPhotos = true
-    
-    //this.ngOnInit()
-    this.routeNavigate.navigate(['home'])
     this.dialog.open(DialogDeleteElement, {
       width: '300px',
       data: {nomPerformer: nomPerformer, nomVid : nomVid, isImage : false},
@@ -201,12 +194,6 @@ export class ArticleProfileComponent implements OnInit, AfterViewInit{
     
   }
   deleteImage(nomPerformer : string, nomVid : string){
-    // these 3 line are very important to delete the file
-    // I have to hide the file that i want to delete or it will be impossible to do that
-    this.showPhotos = false
-    this.showVideos =true
-    //this.ngOnInit()
-    this.routeNavigate.navigate(['home'])
     this.dialog.open(DialogDeleteElement, {
       width: '400px',
       height : '200px',

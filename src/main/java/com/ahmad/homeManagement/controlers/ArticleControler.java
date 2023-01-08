@@ -147,4 +147,29 @@ public class ArticleControler {
         return articleService.getAllCatForArt(idArt);
     }
 
+    @DeleteMapping("{nomP}/deleteVideo/{nomVid}")
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> deleteVideo(@PathVariable("nomP") String nomArticle,
+                                              @PathVariable("nomVid") String nomVido){
+        try {
+            articleService.deleteVideo(nomArticle, nomVido);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Video has been deleted");
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Can't delete the Video !!!");
+        }
+
+    }
+    @DeleteMapping("{nomP}/deleteImage/{nomImage}")
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> deleteImage(@PathVariable("nomP") String nomArticle,
+                                              @PathVariable("nomImage") String nomImage){
+        try {
+            articleService.deleteImage(nomArticle, nomImage);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Image has been deleted");
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Can't delete the Image !!!");
+        }
+
+    }
+
 }

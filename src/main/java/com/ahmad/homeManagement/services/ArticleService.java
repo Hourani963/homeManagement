@@ -1,5 +1,6 @@
 package com.ahmad.homeManagement.services;
 
+import com.ahmad.homeManagement.fileStorage.CantDeleteFileException;
 import com.ahmad.homeManagement.fileStorage.FileStorageVideo;
 import com.ahmad.homeManagement.fileStorage.FileStoreImage;
 import com.ahmad.homeManagement.modules.ArticleRepo;
@@ -181,5 +182,12 @@ public class ArticleService {
             return imageFileStorage.downloadByLink("images\\"+nomPerformer+"\\"+nomVideoORImage);
     }
 
+    public void deleteVideo(String nomPerformer, String nomVido) throws CantDeleteFileException, IOException {
+        videoFileStorage.deleteFile(nomPerformer, nomVido);
+    }
+
+    public void deleteImage(String nomPerformer, String nomImage) throws CantDeleteFileException, IOException {
+        imageFileStorage.deleteFile(nomPerformer,nomImage);
+    }
 
 }

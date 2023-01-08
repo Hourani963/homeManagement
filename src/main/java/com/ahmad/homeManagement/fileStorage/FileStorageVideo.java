@@ -2,7 +2,9 @@ package com.ahmad.homeManagement.fileStorage;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 
@@ -27,11 +29,36 @@ public class FileStorageVideo extends FileStoreLocal {
 
     @Override
     public String setVideo(MultipartFile video, String folderName) throws IOException {
-        // TODO
-        // isVideo
+        isVideo(video);
         isFileEmpty(video);
         this.videoMetaData = extractMetaData(video);
         save(this.folderName+"\\"+ folderName, video.getOriginalFilename(), Optional.ofNullable(videoMetaData),video.getInputStream());
         return folderName+"\\"+video.getOriginalFilename();
+    }
+
+    private void isVideo(MultipartFile file) {
+        System.err.println(file.getContentType());
+        if (!Arrays.asList(
+                ("video/mp4"),
+                ("video/mov"),
+                ("video/mkv"),
+                ("video/vnd.dlna.mpeg-tts")).contains(file.getContentType()))
+            throw new IllegalStateException("File must be a video [" + file.getContentType() + "]");
+    }
+    @Override
+    public void deleteFile(String nomPerformer, String nomVido) throws CantDeleteFileException {
+        File video = new File(pathAbsolutToResources+"\\videos\\"+ nomPerformer + "\\"+ nomVido);
+
+
+        if(video.delete()){
+            File thumbnailVideo = new File(pathAbsolutToResources+"\\videos\\"+ nomPerformer + "\\thumbnail\\"+ nomVido+".jpeg");
+            if(thumbnailVideo.delete());
+
+            else
+                throw new CantDeleteFileException("can't delete the thumbnail");
+        }
+        else
+            throw new CantDeleteFileException("cant delete the video");
+
     }
 }

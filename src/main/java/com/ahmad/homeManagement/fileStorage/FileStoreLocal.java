@@ -68,13 +68,18 @@ public abstract class FileStoreLocal implements IFileStorage {
     }
     public byte[] downloadByLink(String absoluteLink) {
 
+        InputStream targetStream = null;
         try {
-            File file = new File(pathAbsolutToResources+"\\"+absoluteLink);
-            InputStream targetStream = new FileInputStream(file);
+            File file = new File(pathAbsolutToResources + "\\" + absoluteLink);
+            targetStream = new FileInputStream(file);
+
             return IOUtils.toByteArray(targetStream);
         } catch (Exception e) {
             throw new IllegalStateException("Failed to download file From Local", e);
+        } finally {
+            IOUtils.closeQuietly(targetStream,null);
         }
+
     }
 
     protected void isFileEmpty(MultipartFile file) {
