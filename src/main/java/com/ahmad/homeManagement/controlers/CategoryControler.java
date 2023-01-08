@@ -72,4 +72,12 @@ public class CategoryControler {
         return categoryService.getAllArticleforCat(idCat);
     }
 
+    @GetMapping("{idCat}/removeCatToArt/{idArt}")
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> removeCatToArticle(
+            @PathVariable("idCat") Long idCat,
+            @PathVariable("idArt") Long idArt){
+        return categoryService.removeCatToArticle(idCat, idArt);
+    }
+
 }

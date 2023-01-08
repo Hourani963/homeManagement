@@ -13,14 +13,14 @@ export class FileUploadService {
   constructor(private http:HttpClient) { }
   
   // Sent file to server
-  uploadFile(file : any, idArticle : number):Observable<any> {
+  uploadFile(file : any, idArticle : number, isArtProfilePhoto : string):Observable<any> {
   
       // Create form data
       const formData = new FormData(); 
         
       // Store form name as "file" with file data
       formData.append("file", file, file.name);
-      formData.append("isArtProfilePhoto", "false");
+      formData.append("isArtProfilePhoto", isArtProfilePhoto);
       // Make http post request over api
       // with formData as req
       return this.http.post(articleUrl+"/"+idArticle+"/image/upload", formData,{
@@ -72,6 +72,11 @@ export class FileUploadService {
   removeArticleQuantity(idArticle:number, quantity : number){
     let article ={"quantity": quantity}
     return this.http.post(articleUrl+"/removeQuantityArticle/"+idArticle,article,{
+      responseType : 'text'})
+  }
+
+  removeCatFromArt(idCat:number, idPerformer:number){
+    return this.http.get(categoryUrl+"/"+idCat+"/removeCatToArt/"+idPerformer,{
       responseType : 'text'})
   }
 }

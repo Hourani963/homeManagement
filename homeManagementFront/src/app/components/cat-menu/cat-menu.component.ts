@@ -3,6 +3,7 @@ import {Router} from '@angular/router'
 import { HttpClient } from '@angular/common/http';
 import {categoryUrl} from '../../apiUrls'
 import { FileUploadService } from '../../add-article/file-upload.service';
+import {CatergoriesService} from './catergories.service'
 
 @Component({
   selector: 'app-cat-menu',
@@ -14,44 +15,45 @@ export class CatMenuComponent implements OnInit{
   categories: any = [];
   public categoriesSelected : any = [];
   public articleWithCats : any = [];
-  constructor(private router : Router,private http: HttpClient,private fileUploadService: FileUploadService){}
+  constructor(private router : Router,private http: HttpClient,private fileUploadService: FileUploadService,private catService : CatergoriesService){}
 
   @Output() public childEvent = new EventEmitter()
 
   ngOnInit(){
     this.http.get<any>(categoryUrl).subscribe(data => {
-            this.categories.push(data)
+        this.categories.push(data)
+        this.catService.setCats(data)
             
     })
   }
 
   // send articleWithCats to the parentComponent (homeComponent)
-  fireEvent(articleForCats : any = []){
+  fireEvent(articleWithCats : any = []){
       
-      if(articleForCats.length == this.categoriesSelected.length){
-        //console.log(articleForCats)
-        this.childEvent.emit(articleForCats);
+    //if(articleWithCats.length == this.categoriesSelected.length){
+      //console.log(articleForCats)
+      this.childEvent.emit(articleWithCats);
+  //  }
+      
+
+}
+
+getArtsForCats(){
+  this.articleWithCats = []
+  for(let i=0; i<this.categoriesSelected.length; i++){
+    this.fileUploadService.getArtForCat(this.categoriesSelected[i]).subscribe(
+      (data) => {
+        this.articleWithCats.push(data);
+        //console.log(this.articleWithCats)
+        this.fireEvent(this.articleWithCats);
       }
-        
-
+      
+  );
   }
-
-  getArtsForCats(){
-    this.articleWithCats = []
-    for(let i=0; i<this.categoriesSelected.length; i++){
-      this.fileUploadService.getArtForCat(this.categoriesSelected[i]).subscribe(
-        (data) => {
-          this.articleWithCats.push(data);
-          //console.log("length= "+this.articleWithCats.length)
-          this.fireEvent(this.articleWithCats);
-        }
-        
-    );
-    }
-    const nullArticle : any = [];
-    this.fireEvent(nullArticle)
-    
-  }
+  const nullArticle : any = [];
+  this.fireEvent(nullArticle)
+  
+}
 
 
   getCatChange(cat:any){

@@ -25,3 +25,14 @@ button{
   column-gap: 2rem;
   row-gap: 2rem;
 }
+
+mat-paginator {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #3F51B5;
+  color: white;
+  text-align: center;
+  z-index: 100;
+}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IconSetService } from '@coreui/icons-angular';
 import {ArticlesService} from '../../articles.service'
+import { Router} from'@angular/router'
 
 @Component({
   selector: 'app-header',
@@ -12,11 +13,15 @@ export class HeaderComponent implements OnInit{
 
   public allArticles = [];
 
-  constructor(private articleService : ArticlesService){}
+  constructor(private articleService : ArticlesService, private router : Router){}
   ngOnInit(){
     this.allArticles =  this.articleService.getArticles();
-    console.log("%c HEADER", "color:green")
-    console.log(this.allArticles)
+    //console.log("%c HEADER", "color:green")
+    //console.log(this.allArticles)
+  }
+
+  goHome(){
+    this.router.navigate(['home'])
   }
 
 }

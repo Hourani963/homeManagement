@@ -67,7 +67,7 @@ export class AddArticleComponent implements OnInit{
 
   uploadImage(idArticle:number) {
     console.log("%c id Article = "+idArticle, "color : red")
-    this.fileUploadService.uploadFile(this.file,idArticle).subscribe(
+    this.fileUploadService.uploadFile(this.file,idArticle, 'true').subscribe(
         (data: any) => {
           
           // Short link via api response

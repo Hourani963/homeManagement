@@ -1,12 +1,13 @@
   
-<mat-card  class="example-card">
+<mat-card  class="example-card" >
   <div class="card">
-    <mat-card-header>
+    <mat-card-header (click)="goToProfile(article.idArt)">
       <div mat-card-avatar class="example-header-image" style="background-image: url({{ARICLE_URL}}/{{article.idArt}}/image/download)"></div>
       <mat-card-title>{{article.nom}}</mat-card-title>
-      <mat-card-subtitle>{{article.idArt}}</mat-card-subtitle>
+      <mat-card-subtitle>{{article.idArt}} {{article.nom}}</mat-card-subtitle>
+      
     </mat-card-header>
-    <img mat-card-image src="{{ARICLE_URL}}/{{article.idArt}}/image/download" alt="Photo of a Shiba Inu">
+    <img (click)="goToProfile(article.idArt)" mat-card-image src="{{ARICLE_URL}}/{{article.idArt}}/image/download" alt="Photo performer">
     <mat-card-content>
       <p>
         {{article.description}}
@@ -14,25 +15,33 @@
       
       <mat-divider ></mat-divider>
 
-      <mat-chip *ngFor="let cat of catsForArt[0];">
+      <mat-chip-row color="warn"  *ngFor="let cat of catsForArt[0];">
         {{cat.nomCat}}
-      </mat-chip>
-
+        <button  matChipRemove (click)="removeCatFromArt(cat.idCat,article.idArt)">
+          <mat-icon color="warn" >cancel</mat-icon>
+        </button>
+      </mat-chip-row> 
+      <button mat-button (click)="getAllCats()"  [matMenuTriggerFor]="menu">
+        <mat-icon color="primary">add_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button (click)="addCatToPerformer(cat.idCat, article.idArt)" mat-menu-item *ngFor="let cat of allCats[0];">{{cat.nomCat}}</button>
+      </mat-menu>
       <mat-divider ></mat-divider>
-
       <h1>{{article.quantity}}</h1>
+      <mat-card-actions>
+        <button (click)="addArticleQuantity(article.idArt)" mat-mini-fab color="primary" >
+          <mat-icon >add</mat-icon>
+        
+        </button>
+        <button (click)="removeArticleQuantity(article.idArt)" mat-mini-fab color="primary">
+          <mat-icon >remove</mat-icon>
+        </button>
+      </mat-card-actions>
       
     </mat-card-content>
   
-    <mat-card-actions>
-      <button (click)="addArticleQuantity(article.idArt)" mat-mini-fab color="primary" >
-        <mat-icon >add</mat-icon>
-      
-      </button>
-      <button (click)="removeArticleQuantity(article.idArt)" mat-mini-fab color="primary">
-        <mat-icon >remove</mat-icon>
-      </button>
-    </mat-card-actions>
+   
   </div>
   
 </mat-card>

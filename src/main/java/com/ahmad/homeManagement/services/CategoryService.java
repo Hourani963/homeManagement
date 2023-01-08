@@ -93,4 +93,19 @@ public class CategoryService {
         return categoryRepository.getAllArticleForCat(idCat);
 
     }
+
+    public ResponseEntity<String> removeCatToArticle(Long idCat, Long idPerformer) {
+        try {
+            Category category = categoryRepository.findById(idCat)
+                    .orElseThrow(() -> new ResourceNotFoundException("Not found Tutorial with id = " + idCat));
+
+            category.removePerformer(idPerformer);
+            categoryRepository.save(category);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body("Le categorie a été suprimmé à l'article");
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Vérifier que les ids existe dans la bd");
+        }
+    }
 }

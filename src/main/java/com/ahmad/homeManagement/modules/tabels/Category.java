@@ -44,4 +44,14 @@ public class Category {
     public void setArticle(Article article) {
         this.article.add(article);
     }
+
+    public void removePerformer(Long idPerformer) {
+        Article _performer = this.article.stream().filter(t -> t.getIdArt() == idPerformer).findFirst().orElse(null);
+        if (_performer != null) {
+            this.article.remove(_performer);
+            _performer.getCategory().remove(this);
+        }
+       /* this.performer.remove(performer);
+        performer.getCategory().remove(this);*/
+    }
 }
