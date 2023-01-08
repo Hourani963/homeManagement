@@ -23,4 +23,6 @@ public interface IFileStorage {
     String getPathAbsolutToResources();
 
     String setVideo(MultipartFile image, String folderName) throws IOException;
+
+    void creatFolder(String folderName) throws IOException;
 }

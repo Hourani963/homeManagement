@@ -29,7 +29,8 @@ import  {MatIconModule} from'@angular/material/icon'
 import {MatCardModule} from '@angular/material/card'
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatMenuModule} from '@angular/material/menu';
-
+import { ArticleProfileComponent } from './article-profile/article-profile.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {MatMenuModule} from '@angular/material/menu';
     AddCatComponent,
     CatMenuComponent,
     ArticleCardComponent,
+    ArticleProfileComponent,
     
   ],
   imports: [
@@ -65,7 +67,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatIconModule,
     MatCardModule,
     MatPaginatorModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule
 
   ],
   providers: [],

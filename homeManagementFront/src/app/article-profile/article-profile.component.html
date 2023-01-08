@@ -1,0 +1,95 @@
+
+<mat-grid-list cols="4" rowHeight="50px">
+    <mat-grid-tile
+        *ngFor="let tile of tiles"
+        [colspan]="tile.cols"
+        [rowspan]="tile.rows"
+        [style.background]="tile.color"
+    >
+
+    <div [ngSwitch]="tile.text">
+
+        <div *ngSwitchCase="'infos'">
+            
+            <h1 *ngIf="articleInfo.length > 0" >{{articleInfo[0].nom}}</h1>
+        </div>
+
+        <div *ngSwitchCase="'buttons'">
+            <button (click)="showallPhotos()" mat-raised-button color="primary">Show Photos</button>
+            <button (click)="showallVideos()" mat-raised-button color="primary">Show Videos</button>
+            <button (click)="addPhoto()" mat-raised-button color="warn">Add Photos</button>
+            <button (click)="addVideo()" mat-raised-button color="warn">Add Videos</button>
+        </div>
+    </div>
+    
+
+    </mat-grid-tile>
+
+
+</mat-grid-list>
+
+
+<div *ngIf="showPhotos" class="showDiv">
+    
+    <section class="articles">
+        <div class="features">
+            
+
+            <h1 *ngFor="let photo of onePageElements[0]">
+                {{onePageElements[0].length}}
+                <img #image (click)="onClickImage(image)" src="{{articleURL}}/{{articleInfo[0].nom}}/image/downloadByName/{{photo}}"  alt="Photo performer">
+                <button (click)="deleteImage(articleInfo[0].nom,photo)" mat-raised-button >delete</button>
+
+            </h1>
+
+            </div>
+        
+    </section>
+    <mat-paginator color="warn"
+              #paginatorPhoto
+              [length]="photoCount"
+              [pageSize]="20"
+              [pageSizeOptions]="[20,40,60,80]"
+              aria-label="Select page"
+              showFirstLastButtons="">
+  </mat-paginator>
+</div>
+
+
+
+
+<div *ngIf="showVideos" class="showDiv">
+    
+    <section class="articles">
+        <div class="features">
+
+
+            <div *ngFor="let video of onePageElements[0]">
+            
+                <video controls muted 
+                    poster="{{articleURL}}/{{articleInfo[0].nom}}/thumbnail/download/{{video}}" 
+                    height="400px"
+                    width="350px"
+                    >
+                    <source src="{{articleURL}}/{{idArt}}/video/download/{{video}}" type="video/mp4" />
+                    
+                </video>
+                <button (click)="deleteVideo(articleInfo[0].nom,video)" mat-raised-button >delete</button>
+            </div>
+            
+
+        </div>
+            
+    </section>
+    <mat-paginator color="warn"
+              #paginatorVideo
+              [length]="videoCount"
+              [pageSize]="20"
+              [pageSizeOptions]="[20,40,60,80]"
+              aria-label="Select page"
+              showFirstLastButtons="">
+  </mat-paginator>
+
+</div>
+
+

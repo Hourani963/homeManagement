@@ -36,7 +36,7 @@ public abstract class FileStoreLocal implements IFileStorage {
         this.put(folderName, fileName, inputStream, metadata);
     }
 
-    protected void creatFolder(String folderName) throws IOException {
+    public void creatFolder(String folderName) throws IOException {
 
         if (!Files.exists(Path.of(pathAbsolutToResources+"\\"+ folderName))) {
             try {

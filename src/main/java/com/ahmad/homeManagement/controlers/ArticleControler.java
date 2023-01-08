@@ -34,6 +34,11 @@ public class ArticleControler {
         return articleService.findAll();
     }
 
+    @GetMapping("{id}")
+    public Article getPerformerById(@PathVariable("id") Long idArt){
+        return articleService.getPerformerById(idArt);
+    }
+
     @PostMapping("addArticle")
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     @Produces(MediaType.APPLICATION_JSON_VALUE)
@@ -82,6 +87,23 @@ public class ArticleControler {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
         return new ResponseEntity<>(articleService.downloaddArticleImage(idArt,nomImage), headers, HttpStatus.OK);
+
+    }
+    @GetMapping(
+            path = "{nomPerformer}/image/downloadByName/{nomImage}"
+    )
+    public ResponseEntity<byte[]> downloadPerformerImageByNomPerformer(@PathVariable("nomPerformer") String nomPerformer,@PathVariable("nomImage") String nomImage) throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        return new ResponseEntity<>(articleService.downloadPerformerVidoThumbnail(nomPerformer,nomImage,false), headers, HttpStatus.OK);
+    }
+    @GetMapping(
+            path = "{nomPerformer}/thumbnail/download/{nomVid}"
+    )
+    public ResponseEntity<byte[]> downloadPerformerVidoThumbnail(@PathVariable("nomPerformer") String nomPerformer,@PathVariable("nomVid") String nomImage) throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        return new ResponseEntity<>(articleService.downloadPerformerVidoThumbnail(nomPerformer,nomImage, true), headers, HttpStatus.OK);
 
     }
 

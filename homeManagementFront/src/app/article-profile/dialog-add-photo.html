@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Add file</h1>
+
+<form>
+    <label for="fileUpload">Add file</label>
+    <input (change)="onChange($event)" type="file" id="fileUpload" #image>
+</form>
+
+<button (click) ="onClickPhoto()" mat-raised-button color="primary">Valider</button>
+
+<h1 style="color: green;">{{responseMessage}}</h1>

@@ -48,6 +48,9 @@ public class ArticleService {
         return articleRepo.findAllArt();
     }
 
+    public Article getPerformerById(Long idArt) {
+        return articleRepo.findPerformerById(idArt);
+    }
     public ResponseEntity<String> save(Article article) {
         Article _article = null;
         try {
@@ -134,9 +137,9 @@ public class ArticleService {
     public String uploadArticleVideo(Long idArt, MultipartFile file) throws IOException, FrameGrabber.Exception {
         Optional<Article> article = articleRepo.findById(idArt);
         String videoLing = videoFileStorage.setVideo(file, article.get().getNom());
-
+        videoFileStorage.creatFolder("videos\\"+article.get().getNom()+"\\thumbnail");
         this.getImageFromVideo(videoFileStorage.getPathAbsolutToResources()+"\\videos\\"+videoLing,
-                videoFileStorage.getPathAbsolutToResources()+"\\videos\\"+article.get().getNom());
+                videoFileStorage.getPathAbsolutToResources()+"\\videos\\"+article.get().getNom()+"\\thumbnail\\"+file.getOriginalFilename());
 
         return videoLing;
     }
@@ -145,9 +148,10 @@ public class ArticleService {
         g.start();
 
         Java2DFrameConverter converter = new Java2DFrameConverter();
-
+        g.setFrameNumber(g.getLengthInFrames()/2);
+        g.grab();
         // (i) is the number of photos tha I need
-        for (int i = 0 ; i < 1 ; i++) {
+        for (int i = 500 ; i < 501 ; i++) {
 
             Frame frame = g.grabImage(); // It is important to use grabImage() to get a frame that can be turned into a BufferedImage
 
@@ -157,6 +161,7 @@ public class ArticleService {
         }
 
         g.stop();
+        g = new FFmpegFrameGrabber("");
     }
     public List<String> downloaddArticleVideos(Long idArt) {
         Optional<Article> article = articleRepo.findById(idArt);
@@ -168,4 +173,13 @@ public class ArticleService {
 
         return videoFileStorage.downloadByLink("videos\\"+article.get().getNom()+"\\"+videoFileName);
     }
+
+    public byte[] downloadPerformerVidoThumbnail(String nomPerformer, String nomVideoORImage, boolean isThumbnail) {
+        if (isThumbnail)
+            return imageFileStorage.downloadByLink("videos\\"+nomPerformer+"\\thumbnail\\"+nomVideoORImage+".jpeg");
+        else
+            return imageFileStorage.downloadByLink("images\\"+nomPerformer+"\\"+nomVideoORImage);
+    }
+
+
 }

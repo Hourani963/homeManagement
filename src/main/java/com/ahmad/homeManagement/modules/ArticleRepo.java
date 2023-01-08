@@ -39,4 +39,6 @@ public interface ArticleRepo extends JpaRepository<Article, Long> {
 
     @Query("SELECT c FROM Category c JOIN c.article a WHERE a.idArt = :idArt")
     Collection<Category> getAllCatForArt(Long idArt);
+    @Query("SELECT a FROM Article a WHERE a.idArt = :idArt")
+    Article findPerformerById(Long idArt);
 }
