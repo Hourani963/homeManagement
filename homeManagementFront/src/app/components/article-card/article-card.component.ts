@@ -24,6 +24,7 @@ export class ArticleCardComponent implements OnInit, OnChanges {
 
   ngOnInit(){
     this.getAllCatForArt()
+    this.quantityMessage = this.article.quantity
   }
 
   ngOnChanges(){

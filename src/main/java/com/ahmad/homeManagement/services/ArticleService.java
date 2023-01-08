@@ -80,7 +80,7 @@ public class ArticleService {
             if(_article.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("L'article dont l'id = " + idArt + " n'existe pas");
             articleRepo.addQuantity(idArt, newQuantity);
             historisation(idArt,_article.get().getQuantity(),_article.get().getQuantity()+newQuantity);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Quantity added old Quantity = "+ _article.get().getQuantity() + " new Quantity = " + (_article.get().getQuantity()+newQuantity) );
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(_article.get().getQuantity()+newQuantity + "" );
         }catch (Exception e){
             ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("errore while adding quantity to article id : " + idArt);
         }
@@ -95,7 +95,7 @@ public class ArticleService {
             if(_article.get().getQuantity() - quantity < 0) return ResponseEntity.status(HttpStatus.CONFLICT).body("Quantity ne peut pas être négative");
             articleRepo.removeQuantity(idArt, quantity);
             historisation(idArt,_article.get().getQuantity(),_article.get().getQuantity()-quantity);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Quantity removed old Quantity = "+ _article.get().getQuantity() + " new Quantity = " + (_article.get().getQuantity()-quantity) );
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("" + (_article.get().getQuantity()-quantity) );
         }catch (Exception e){
             ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("errore while adding quantity to article id : " + idArt);
         }
