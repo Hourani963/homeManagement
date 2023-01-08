@@ -41,8 +41,7 @@ export class FileUploadService {
   // add Cat to article
   getCat(idCat:number, idArt:number):Observable<any> {
     
-    return this.http.get(categoryUrl+"/"+idCat+"/addCatToArt/"+idArt,{
-    responseType : 'text'})
+    return this.http.get(categoryUrl+"/"+idCat+"/addCatToArt/"+idArt)
   }
   // get all article for cat
   getArtForCat(idCat:number){
@@ -76,7 +75,6 @@ export class FileUploadService {
   }
 
   removeCatFromArt(idCat:number, idPerformer:number){
-    return this.http.get(categoryUrl+"/"+idCat+"/removeCatToArt/"+idPerformer,{
-      responseType : 'text'})
+    return this.http.get(categoryUrl+"/"+idCat+"/removeCatToArt/"+idPerformer)
   }
 }

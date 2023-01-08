@@ -70,7 +70,7 @@ public class CategoryService {
         return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("le nom de Category n'a pas été modifié");
     }
 
-    public ResponseEntity<String> addCatToArticle(Long idCat, Long idArt) {
+    public Collection<Category> addCatToArticle(Long idCat, Long idArt) {
         try {
             Optional<Object> _cat = categoryRepository.findById(idCat).map(category -> {
                 Article _article = articleRepo.findById(idArt)
@@ -81,11 +81,11 @@ public class CategoryService {
 
             });
 
-            return ResponseEntity.status(HttpStatus.CREATED).body("Le categorie a été ajouté à l'article");
+            return articleRepo.getAllCatForArt(idArt);
 
 
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Vérifier que les ids existe dans la bd");
+            return articleRepo.getAllCatForArt(idArt);
         }
     }
 
@@ -94,18 +94,18 @@ public class CategoryService {
 
     }
 
-    public ResponseEntity<String> removeCatToArticle(Long idCat, Long idPerformer) {
+    public Collection<Category> removeCatToArticle(Long idCat, Long idArt) {
         try {
             Category category = categoryRepository.findById(idCat)
                     .orElseThrow(() -> new ResourceNotFoundException("Not found Tutorial with id = " + idCat));
 
-            category.removePerformer(idPerformer);
+            category.removePerformer(idArt);
             categoryRepository.save(category);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body("Le categorie a été suprimmé à l'article");
+            return articleRepo.getAllCatForArt(idArt);
         }
         catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Vérifier que les ids existe dans la bd");
+            return articleRepo.getAllCatForArt(idArt);
         }
     }
 }

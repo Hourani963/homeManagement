@@ -61,7 +61,7 @@ public class CategoryControler {
 
     @GetMapping("{idCat}/addCatToArt/{idArt}")
     @Produces(MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> addCatToArticle(
+    public Collection<Category> addCatToArticle(
             @PathVariable("idCat") Long idCat,
             @PathVariable("idArt") Long idArt){
         return categoryService.addCatToArticle(idCat, idArt);
@@ -74,7 +74,7 @@ public class CategoryControler {
 
     @GetMapping("{idCat}/removeCatToArt/{idArt}")
     @Produces(MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> removeCatToArticle(
+    public Collection<Category> removeCatToArticle(
             @PathVariable("idCat") Long idCat,
             @PathVariable("idArt") Long idArt){
         return categoryService.removeCatToArticle(idCat, idArt);

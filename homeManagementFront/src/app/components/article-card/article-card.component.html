@@ -25,7 +25,7 @@
         <mat-icon color="primary">add_circle</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button (click)="addCatToPerformer(cat.idCat, article.idArt)" mat-menu-item *ngFor="let cat of allCats[0];">{{cat.nomCat}}</button>
+        <button (click)="addCatToArticle(cat.idCat, article.idArt)" mat-menu-item *ngFor="let cat of allCats[0];">{{cat.nomCat}}</button>
       </mat-menu>
       <mat-divider ></mat-divider>
       

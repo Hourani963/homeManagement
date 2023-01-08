@@ -28,7 +28,7 @@ export class ArticleCardComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(){
-    
+    this.getAllCatForArt()
   }
   goToProfile(idArt : number){
     this.router.navigate(["/profile", idArt])
@@ -36,19 +36,25 @@ export class ArticleCardComponent implements OnInit, OnChanges {
   removeCatFromArt(idCat : number, idPerformer : number){
     this.uploadService.removeCatFromArt(idCat, idPerformer).subscribe(
       data =>{
-        console.log(data)
+        //console.log(data)
+        this.catsForArt = []
+        this.catsForArt.push(data)
+        
       }
     )
+    
   }
   getAllCats(){
     //console.log(this.allCats)
     this.allCats = this.catService.getCats()
   }
-  addCatToPerformer(idCat : number, idPerformer : number){
+  addCatToArticle(idCat : number, idPerformer : number){
     //console.log(idCat)
     this.uploadService.getCat(idCat, idPerformer).subscribe(
       data =>{
-        console.log(data)
+        //console.log(data)
+        this.catsForArt = []
+        this.catsForArt.push(data)
       }
     )
   }
@@ -56,6 +62,8 @@ export class ArticleCardComponent implements OnInit, OnChanges {
       this.uploadService.getCatForArt(this.article.idArt).subscribe(
         (data : any) =>{
           this.catsForArt.push(data)
+          console.log(this.catsForArt)
+          return data[0]
         }
       )
       
@@ -68,7 +76,8 @@ export class ArticleCardComponent implements OnInit, OnChanges {
         console.log(data)
       }
     )
-    //this.reloadComponent() 
+
+    
   }
 
   removeArticleQuantity(idArt: number){
@@ -78,7 +87,7 @@ export class ArticleCardComponent implements OnInit, OnChanges {
         console.log(data)
       }
     )
-    //this.reloadComponent() 
+    
   }
   
 }
