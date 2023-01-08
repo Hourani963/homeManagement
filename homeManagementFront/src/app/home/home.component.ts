@@ -161,6 +161,8 @@ export class HomeComponent implements OnInit ,AfterViewInit{
   tiles: Tile[] = [
     {text: 'buttons', cols: 1, rows: 1, color: ''},
     {text: 'category', cols: 3, rows: 1, color: ''},
+    {text: 'sort', cols: 3, rows: 1, color: ''},
+    {text: 'sortInfo', cols: 1, rows: 1, color: ''},
     
   ];
 

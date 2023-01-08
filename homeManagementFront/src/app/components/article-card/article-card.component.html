@@ -28,14 +28,16 @@
         <button (click)="addCatToPerformer(cat.idCat, article.idArt)" mat-menu-item *ngFor="let cat of allCats[0];">{{cat.nomCat}}</button>
       </mat-menu>
       <mat-divider ></mat-divider>
-      <h1>{{article.quantity}}</h1>
+      
       <mat-card-actions>
-        <button (click)="addArticleQuantity(article.idArt)" mat-mini-fab color="primary" >
+        
+        <button class="quantityButton" (click)="removeArticleQuantity(article.idArt)" mat-mini-fab color="primary">
+          <mat-icon >remove</mat-icon>
+        </button>
+        <h3>{{article.quantity}}</h3>
+        <button class="quantityButton" (click)="addArticleQuantity(article.idArt)" mat-mini-fab color="primary" >
           <mat-icon >add</mat-icon>
         
-        </button>
-        <button (click)="removeArticleQuantity(article.idArt)" mat-mini-fab color="primary">
-          <mat-icon >remove</mat-icon>
         </button>
       </mat-card-actions>
       

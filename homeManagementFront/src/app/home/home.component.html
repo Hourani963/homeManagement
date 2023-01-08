@@ -1,5 +1,5 @@
 
-<mat-grid-list cols="4" rowHeight="100px">
+<mat-grid-list cols="4" rowHeight="50px">
     <mat-grid-tile
         *ngFor="let tile of tiles"
         [colspan]="tile.cols"
@@ -17,6 +17,15 @@
         <div *ngSwitchCase="'category'">
             <app-cat-menu  (childEvent)="getArticleforCats($event)"></app-cat-menu>
         </div>
+
+        <div *ngSwitchCase="'sort'">
+            <button  (click) ="sortByName(true)" mat-raised-button color="warn">A->Z</button>
+            <button  (click) ="sortByName(false)" mat-raised-button color="warn">Z->A</button>
+        </div>
+
+        <div *ngSwitchCase="'sortInfo'">
+          <mat-card-subtitle>{{sortMessage}}</mat-card-subtitle>
+      </div>
       </div>
     </mat-grid-tile>
   </mat-grid-list>
