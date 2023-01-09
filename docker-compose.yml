@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+    - "8080:8080"
+    depends_on: 
+      - db 
+    environment: # Pass environment variables to the service
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/homedb                                   
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD:  root
+    networks:
+      - backend
+      - frontend
+    container_name: apiurl
+
+
+  homemanagementfront:
+    build:
+      context: ./homeManagementFront
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_BASE_URL: http://127.0.0.1:8080/api
+    ports:
+      - "4200:4200"
+    depends_on:
+      - api
+    networks:
+      - frontend
+      - backend
+
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: homedb
+      MYSQL_PASSWORD: 
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - backend  
+    container_name: mysqlurl
+
+  phpmyadmin:
+      image: phpmyadmin:latest
+      container_name: pma
+      links:
+        - db
+      environment:
+        PMA_HOST: db
+        PMA_PORT: 3306
+        PMA_ARBITRARY: 1
+      networks:
+      - backend
+
+volumes:
+  db-data:
+
+
+networks:
+  backend:
+  frontend:

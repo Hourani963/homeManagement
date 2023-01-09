@@ -6,7 +6,9 @@ h3 {
   
   color: rgba(9, 146, 105, 0.8);
 }
-
+mat-card-header{
+  cursor: pointer;
+}
 mat-card-actions{
   display: flex;
   justify-content: center;
@@ -25,6 +27,7 @@ mat-card-actions{
   }
 
   img{
+    cursor: pointer;
     width: 350px;
     height: 400px;
     object-fit: cover;
