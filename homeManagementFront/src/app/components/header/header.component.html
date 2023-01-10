@@ -1,9 +1,12 @@
 
 <mat-toolbar color="primary">
-    <button (click)="goHome()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <button (click)="navigateHeader('home')" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
       <mat-icon>home</mat-icon>
     </button>
-    <span>My App</span>
+    <button (click)="navigateHeader('historique')" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>history</mat-icon>
+    </button>
+    <span>Home Management</span>
     <span class="example-spacer"></span>
 
     <mat-form-field appearance="fill">

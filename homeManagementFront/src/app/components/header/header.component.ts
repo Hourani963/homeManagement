@@ -20,8 +20,8 @@ export class HeaderComponent implements OnInit{
     //console.log(this.allArticles)
   }
 
-  goHome(){
-    this.router.navigate(['home'])
+  navigateHeader(endPoint:string){
+    this.router.navigate([endPoint])
   }
 
 }

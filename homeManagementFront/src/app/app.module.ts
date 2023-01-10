@@ -31,6 +31,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatMenuModule} from '@angular/material/menu';
 import { ArticleProfileComponent } from './article-profile/article-profile.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { HistoriqueComponent } from './components/historique/historique.component';
+import {MatTableModule} from '@angular/material/table';
+
 
 @NgModule({
   declarations: [
@@ -44,6 +47,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     CatMenuComponent,
     ArticleCardComponent,
     ArticleProfileComponent,
+    HistoriqueComponent,
     
   ],
   imports: [
@@ -68,7 +72,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatCardModule,
     MatPaginatorModule,
     MatMenuModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTableModule
 
   ],
   providers: [],
