@@ -21,15 +21,15 @@
       </ng-container>
 
       <!-- Ancienne Quantité Column -->
-      <ng-container matColumnDef="ancienne quantité">
+      <ng-container matColumnDef="ancienne quantité" >
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Ancienne Quantité </th>
-        <td mat-cell *matCellDef="let row"> {{row.oldQuantity}} </td>
+        <td mat-cell *matCellDef="let row" [ngStyle]="{'background-color': (row.newQuantity-row.oldQuantity>0) ? '#8cff97' : ((row.newQuantity-row.oldQuantity==0) ? 'white' : '#ff7c7c')}"> {{row.oldQuantity}} </td>
       </ng-container>
   
       <!-- Nouvelle Quantité Column -->
       <ng-container matColumnDef="nouvelle quantité">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Nouvelle Quantité </th>
-        <td mat-cell *matCellDef="let row"> {{row.newQuantity}} </td>
+        <td mat-cell *matCellDef="let row" [ngStyle]="{'background-color': (row.newQuantity-row.oldQuantity>0) ? '#8cff97' : ((row.newQuantity-row.oldQuantity==0) ? 'white' : '#ff7c7c')}"> {{row.newQuantity}} </td>
       </ng-container>
 
       <!-- Date de modification Column -->
