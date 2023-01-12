@@ -17,6 +17,9 @@ public class Historique {
     private int newQuantity;
     private Date dateModif;
 
+    @Transient
+    private String nomArticle;
+
     public Historique(Long idArticle, int oldQuantity, int newQuantity, Date dateModif) {
         this.idArticle = idArticle;
         this.oldQuantity = oldQuantity;
@@ -63,4 +66,11 @@ public class Historique {
         this.dateModif = dateModif;
     }
 
+    public String getNomArticle() {
+        return nomArticle;
+    }
+
+    public void setNomArticle(String nomArticle) {
+        this.nomArticle = nomArticle;
+    }
 }

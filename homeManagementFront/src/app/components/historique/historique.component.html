@@ -4,37 +4,38 @@
   </mat-form-field>
   
   <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort>
+    <table mat-table [dataSource]="historyOnePage[0]" matSort>
   
-      <!-- ID Column -->
+      <!-- ID Article Column -->
       <ng-container matColumnDef="id article">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID Article </th>
-        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.idArticle}} </td>
       </ng-container>
   
       
   
-      <!-- Name Column -->
+      <!-- Nom Article Column -->
       <ng-container matColumnDef="nom Article">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom Article </th>
-        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.nomArticle}} </td>
       </ng-container>
 
-      <!-- Progress Column -->
+      <!-- Ancienne Quantité Column -->
       <ng-container matColumnDef="ancienne quantité">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Ancienne Quantité </th>
-        <td mat-cell *matCellDef="let row"> {{row.progress}}% </td>
+        <td mat-cell *matCellDef="let row"> {{row.oldQuantity}} </td>
       </ng-container>
   
-      <!-- Fruit Column -->
+      <!-- Nouvelle Quantité Column -->
       <ng-container matColumnDef="nouvelle quantité">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Nouvelle Quantité </th>
-        <td mat-cell *matCellDef="let row"> {{row.fruit}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.newQuantity}} </td>
       </ng-container>
 
+      <!-- Date de modification Column -->
       <ng-container matColumnDef="date">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Date de modification </th>
-        <td mat-cell *matCellDef="let row"> {{row.fruit}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.dateModif | date:'short'}} </td>
       </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -46,7 +47,13 @@
       </tr>
     </table>
   
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator 
+      [length]="dataSource.length" 
+      [pageSize]="10" 
+      [pageSizeOptions]="[10,25,50, 100]" 
+      aria-label="Select page of history"
+      showFirstLastButtons=""
+    ></mat-paginator>
   </div>
   
   
