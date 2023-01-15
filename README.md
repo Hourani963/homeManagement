@@ -14,7 +14,7 @@
 1) Download and install docker
 2) create a new folder and create a file called "docker-compose.yml" in that folder
 3) Copy and paste this docker compose text in your docker compose file
-```
+```docker
 version: '3.8'
 
 services:
@@ -81,7 +81,10 @@ networks:
   frontend:
 ```
 
-4) run "docker-compose up" in a cmd of the folder of docker-compose.yml
+4) run this command in a cmd of the folder of docker-compose.yml
+```
+docker-compose up
+```
 5) once finished successfully you can open the project on
 ```
 localhost:4200
