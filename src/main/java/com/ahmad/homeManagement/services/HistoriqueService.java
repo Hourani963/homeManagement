@@ -25,7 +25,7 @@ public class HistoriqueService {
 
     public List<Historique> findAll() {
 
-        return historiqueRepository.findAll().stream().map(
+        return historiqueRepository.findAllHisto().stream().map(
                 historique -> {
                     historique.setNomArticle(articleService.getPerformerById(historique.getIdArticle()).getNom());
                     return historique;

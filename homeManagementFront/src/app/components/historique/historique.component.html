@@ -35,7 +35,7 @@
       <!-- Date de modification Column -->
       <ng-container matColumnDef="date">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Date de modification </th>
-        <td mat-cell *matCellDef="let row"> {{row.dateModif | date:'short'}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.dateModif | date:'dd/MM/yyyy HH:mm'}} </td>
       </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
