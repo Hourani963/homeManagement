@@ -12,7 +12,7 @@ services:
     environment: # Pass environment variables to the service
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/homedb                                   
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD:  root
+      SPRING_DATASOURCE_PASSWORD: root
     networks:
       - backend
       - frontend
@@ -55,8 +55,11 @@ services:
         PMA_HOST: db
         PMA_PORT: 3306
         PMA_ARBITRARY: 1
+      ports:
+        - 8001:80
       networks:
       - backend
+
 
 volumes:
   db-data:
