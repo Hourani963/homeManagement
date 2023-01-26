@@ -12,12 +12,14 @@
         <div *ngSwitchCase="'infos'">
             
             <h1 *ngIf="articleInfo.length > 0" >{{articleInfo[0].nom}}</h1>
+            
         </div>
 
         <div *ngSwitchCase="'buttons'">
             <button (click)="showallPhotos()" mat-raised-button color="primary">Show Photos</button>
             <button (click)="showallVideos()" mat-raised-button color="primary">Show Videos</button>
-            <button (click)="addPhoto()" mat-raised-button color="warn">Add Photos</button>
+            <button (click)="addPhoto('true')" mat-raised-button color="warn">Profile photo</button>
+            <button (click)="addPhoto('false')" mat-raised-button color="warn">Add Photos</button>
             <button (click)="addVideo()" mat-raised-button color="warn">Add Videos</button>
         </div>
     </div>

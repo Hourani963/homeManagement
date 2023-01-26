@@ -160,10 +160,10 @@ export class ArticleProfileComponent implements OnInit, AfterViewInit{
     
   }
 
-  addPhoto(){
+  addPhoto(isArtProfilePhoto:string){
     this.dialog.open(DialogAddPhoto, {
       width: '300px',
-      data: {idArt: this.idArt},
+      data: {idArt: this.idArt, isArtProfilePhoto : isArtProfilePhoto},
     });
   }
   addVideo(){
@@ -224,7 +224,7 @@ export class DialogAddPhoto {
 
   onClickPhoto(){
     //console.log(this.data.idArt)
-    this.dataService.addPhotoToPerformer(this.data.idArt,this.file).subscribe(
+    this.dataService.addPhotoToPerformer(this.data.idArt,this.file, this.data.isArtProfilePhoto).subscribe(
       data => this.responseMessage= data
     )
   }

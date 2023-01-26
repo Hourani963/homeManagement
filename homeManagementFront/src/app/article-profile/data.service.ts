@@ -24,12 +24,13 @@ export class DataService {
     return this.http.get(articleUrl+"/"+idArt+"/video/downloadAll")
   }
 
-  addPhotoToPerformer(idArt : number, file : File){
+  // isArtProfilePhoto doit être false ou true
+  addPhotoToPerformer(idArt : number, file : File, isArtProfilePhoto:string){
     const formData = new FormData(); 
         
     // Store form name as "file" with file data
     formData.append("file", file, file.name);
-    formData.append("isArtProfilePhoto","false");
+    formData.append("isArtProfilePhoto",isArtProfilePhoto);
     // Make http post request over api
     // with formData as req
     return this.http.post(articleUrl+"/"+idArt+"/image/upload", formData,{
