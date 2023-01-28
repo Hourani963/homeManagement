@@ -1,14 +1,14 @@
 # homeManagement
 
+### J'ai eu une idée de projet qui soit une base de données qui me permette de répertorier tous les objets de ma maison avec pour chacun leur visualisation graphique .
+### Cet exercic avait pour but de mettre en pratique différentes compétences aquises :
+- La conception (MCD/MLD) de la base de donnée en utilisant Looping
+- Le developpement BackEnd en utilisant le framework SpringBoot en Java
+- Le developpement frontEnd en utilisant le framework Angular en TypeScript
+
 ## Data base (Mysql) (conception tool looping)
 
 ![image](https://user-images.githubusercontent.com/81326209/212572779-8e92d843-8bc5-401b-b757-b2c34da744ec.png)
-
-
-## API (spring boot)
-
-
-## FrontEnd (Angular)
 
 # To use it
 1) Download and install docker
